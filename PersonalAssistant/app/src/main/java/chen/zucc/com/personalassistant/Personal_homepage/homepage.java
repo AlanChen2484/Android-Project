@@ -8,7 +8,10 @@ import android.view.WindowManager;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
+import chen.zucc.com.personalassistant.Income_expenses.Income_expensesActivity;
+import chen.zucc.com.personalassistant.Manage_money_matters.Manager_money_mattersActivity;
 import chen.zucc.com.personalassistant.R;
+import chen.zucc.com.personalassistant.Schedule.ScheduleActivity;
 
 public class homepage extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
 
@@ -27,10 +30,10 @@ public class homepage extends AppCompatActivity implements BottomNavigationBar.O
     BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
 
         bottomNavigationBar
-            .addItem(new BottomNavigationItem(R.mipmap.ic_action_home, "Home").setActiveColorResource(R.color.cyan_500))
-            .addItem(new BottomNavigationItem(R.mipmap.ic_action_find , "find").setActiveColorResource(R.color.colorPrimaryDark))
-            .addItem(new BottomNavigationItem(R.mipmap.ic_action_sx, "sixin").setActiveColorResource(R.color.colorPrimary1))
-            .addItem(new BottomNavigationItem(R.mipmap.ic_action_person, "person").setActiveColorResource(R.color.colorPrimaryDark1))  //调颜色
+            .addItem(new BottomNavigationItem(R.mipmap.ic_action_home, "日程安排").setActiveColorResource(R.color.cyan_500))
+            .addItem(new BottomNavigationItem(R.mipmap.ic_action_find, "账本记录").setActiveColorResource(R.color.colorPrimaryDark))
+            .addItem(new BottomNavigationItem(R.mipmap.ic_action_sx, "财富管理").setActiveColorResource(R.color.colorPrimary1))
+            .addItem(new BottomNavigationItem(R.mipmap.ic_action_person, "个人主页").setActiveColorResource(R.color.colorPrimaryDark1))//调颜色
             .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
             .setFirstSelectedPosition(lastSelectedPosition)
             .initialise();
@@ -44,22 +47,22 @@ public class homepage extends AppCompatActivity implements BottomNavigationBar.O
         lastSelectedPosition = position;
         switch (position){
             case 0:
-                Intent intent0 = new Intent(this, HomeActivity.class);
+                Intent intent0 = new Intent(this, ScheduleActivity.class);
                 this.startActivity(intent0);
                 break;
 
             case 1:
-                Intent intent1 = new Intent(this, FoundActivity.class);
+                Intent intent1 = new Intent(this, Income_expensesActivity.class);
                 this.startActivity(intent1);
                 break;
 
             case 2:
-                Intent intent2 = new Intent(this, EmailActivity.class);
+                Intent intent2 = new Intent(this, Manager_money_mattersActivity.class);
                 this.startActivity(intent2);
                 break;
 
             case 3:
-                Intent intent3 = new Intent(this, PersonalInformationActivity.class);
+                Intent intent3 = new Intent(this, homepage.class);
                 this.startActivity(intent3);
                 break;
         }

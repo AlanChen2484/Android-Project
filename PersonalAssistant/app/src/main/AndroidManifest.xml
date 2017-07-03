@@ -19,7 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Personal_homepage.homepage"></activity>
+        <activity android:name=".Personal_homepage.homepage" />
+        <activity android:name=".Add_schedule.Add_schedule_Activity" />
+        <activity android:name=".Income_expenses.Income_expensesActivity" />
+        <activity android:name=".Manage_money_matters.Manager_money_mattersActivity" />
+        <activity android:name=".Schedule.ScheduleActivity"></activity>
     </application>
 
 </manifest>
