@@ -31,7 +31,6 @@ public class Income_expensesActivity extends AppCompatActivity implements Bottom
 //             .setHideOnSelect(true);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_action_schedule, "日程安排").setActiveColorResource(R.color.blue))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_action_bill, "账本记录").setActiveColorResource(R.color.blue))
-//                .addItem(new BottomNavigationItem(R.mipmap.ic_action_add, "发布事项").setActiveColorResource(R.color.orange))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_action_managemoney, "财富管理").setActiveColorResource(R.color.blue))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_action_person, "个人主页").setActiveColorResource(R.color.blue))
 //                .setFirstSelectedPosition(0)
