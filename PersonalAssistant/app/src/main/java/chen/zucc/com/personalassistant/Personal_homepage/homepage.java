@@ -1,10 +1,12 @@
 package chen.zucc.com.personalassistant.Personal_homepage;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
@@ -16,36 +18,42 @@ import chen.zucc.com.personalassistant.Schedule.ScheduleActivity;
 public class homepage extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
 
     private BottomNavigationBar bottomNavigationBar;
-    int lastSelectedPosition = 0;
-    private String TAG = BottomNavigationBarDemoActivity.class.getSimpleName();
+    int lastSelectedPosition = 3;
+//    private String TAG = BottomNavigationBarDemoActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_homepage);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//为了隐藏手机状态栏
-        setContentView(R.layout.activity_homepage);
+
+        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+
+//        BadgeItem numberBadgeItem = new BadgeItem()
+//                .setBorderWidth(4)
+//                .setBackgroundColor(Color.RED)
+//                .setText("5")
+//                .setHideOnSelect(true);
+        bottomNavigationBar
+                .addItem(new BottomNavigationItem(R.mipmap.ic_action_schedule, "日程安排").setActiveColorResource(R.color.blue))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_action_bill, "账本记录").setActiveColorResource(R.color.blue))
+//                .addItem(new BottomNavigationItem(R.mipmap.ic_action_add, "发布事项").setActiveColorResource(R.color.orange))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_action_managemoney, "财富管理").setActiveColorResource(R.color.blue))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_action_person, "个人主页").setActiveColorResource(R.color.blue))
+//                .setFirstSelectedPosition(0)
+                .setFirstSelectedPosition(lastSelectedPosition)
+                .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
+                .initialise();
+
+        bottomNavigationBar.setTabSelectedListener(this);
     }
 
-    BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
-
-        bottomNavigationBar
-            .addItem(new BottomNavigationItem(R.mipmap.ic_action_home, "日程安排").setActiveColorResource(R.color.cyan_500))
-            .addItem(new BottomNavigationItem(R.mipmap.ic_action_find, "账本记录").setActiveColorResource(R.color.colorPrimaryDark))
-            .addItem(new BottomNavigationItem(R.mipmap.ic_action_sx, "财富管理").setActiveColorResource(R.color.colorPrimary1))
-            .addItem(new BottomNavigationItem(R.mipmap.ic_action_person, "个人主页").setActiveColorResource(R.color.colorPrimaryDark1))//调颜色
-            .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
-            .setFirstSelectedPosition(lastSelectedPosition)
-            .initialise();
-
-        bottomNavigationBar.setTabSelectedListener(this);//底部导航栏监听
-
-}
-    //底部导航栏点击效果
     @Override
     public void onTabSelected(int position) {
         lastSelectedPosition = position;
-        switch (position){
+        switch (position) {
             case 0:
                 Intent intent0 = new Intent(this, ScheduleActivity.class);
                 this.startActivity(intent0);
