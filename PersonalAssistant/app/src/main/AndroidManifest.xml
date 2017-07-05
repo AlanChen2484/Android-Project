@@ -20,12 +20,21 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Add_schedule.Add_schedule_Activity" />
         <activity android:name=".Income_expenses.Income_expensesActivity" />
         <activity android:name=".Manage_money_matters.Manager_money_mattersActivity" />
-        <activity android:name=".Personal_homepage.homepage">
-
-        </activity>
+        <activity android:name=".Personal_homepage.homepage" />
+        <activity
+            android:name=".Personal_homepage.SettingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Personal_homepage.AccountsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Personal_homepage.PersonalSettingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Personal_homepage.RetroactionActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+    tools:showIn="@layout/activity_homepage_accounts">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:background="@drawable/label_bg_shap"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="花瓣账户"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/phone_set"
+                    style="@style/label_bg_single_layout">
+
+                    <TextView
+                        style="@style/set_left_text"
+                        android:text="手机号" />
+
+                    <TextView
+                        android:id="@+id/phone_text"
+                        style="@style/set_right_text"
+                        android:hint="未绑定" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/email_set"
+                    style="@style/label_bg_single_layout">
+
+                    <TextView
+                        style="@style/set_left_text"
+                        android:text="邮箱" />
+
+                    <TextView
+                        android:id="@+id/email_text"
+                        style="@style/set_right_text"
+                        android:hint="未绑定" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/password_set"
+                    style="@style/label_bg_single_layout">
+
+                    <TextView
+                        style="@style/set_left_text"
+                        android:text="密码" />
+
+                    <TextView
+                        android:id="@+id/password_text"
+                        style="@style/set_right_text"
+                        android:hint="未绑定" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="48dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:background="@drawable/label_bg_shap"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="花瓣账户"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/qq_set"
+                    style="@style/label_bg_single_layout">
+
+                    <TextView
+                        style="@style/set_left_text"
+                        android:text="QQ" />
+
+                    <TextView
+                        android:id="@+id/qq_text"
+                        style="@style/set_right_text"
+                        android:hint="未绑定" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/label_bg_single_layout"
+                    android:id="@+id/wechat_set">
+
+                    <TextView
+                        style="@style/set_left_text"
+                        android:text="微信" />
+
+                    <TextView
+                        android:id="@+id/wechat_text"
+                        style="@style/set_right_text"
+                        android:hint="未绑定" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/label_bg_single_layout">
+
+                    <TextView
+                        style="@style/set_left_text"
+                        android:text="豆瓣" />
+
+                    <TextView
+                        style="@style/set_right_text"
+                        android:hint="未绑定" />
+                </LinearLayout>
+                <LinearLayout style="@style/label_bg_single_layout">
+
+                    <TextView
+                        style="@style/set_left_text"
+                        android:text="新浪微博" />
+
+                    <TextView
+                        style="@style/set_right_text"
+                        android:hint="未绑定" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

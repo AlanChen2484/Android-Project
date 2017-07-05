@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_navigation_bar"
+        android:layout_below="@+id/appbar"
+        android:fadingEdge="horizontal"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/homepage_img2" />
+
+            //昵称
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/name"
+                android:layout_width="344dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="30dp"
+                android:hint="请在这里输入昵称"
+                android:maxLength="30"
+                android:textSize="16sp"
+                app:met_baseColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="昵称："
+                app:met_floatingLabelTextColor="@color/blue"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_maxCharacters="30"
+                app:met_primaryColor="@color/blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif"
+                android:text="性别"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/sex"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:entries="@array/sex"
+                android:paddingRight="0dp" />
+
+            <!--//城市-->
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/city"
+                android:layout_width="344dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:hint="请在这里输入所在城市"
+                android:maxLength="30"
+                android:textSize="16sp"
+                app:met_baseColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="城市："
+                app:met_floatingLabelTextColor="@color/blue"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_maxCharacters="30"
+                app:met_primaryColor="@color/blue" />
+
+            //个人主页
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/personHomepage"
+                android:layout_width="344dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:hint="请在这里输入个人主页"
+                android:maxLength="30"
+                android:textSize="16sp"
+                app:met_baseColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="个人主页："
+                app:met_floatingLabelTextColor="@color/blue"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_maxCharacters="30"
+                app:met_primaryColor="@color/blue" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
