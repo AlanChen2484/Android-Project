@@ -26,8 +26,8 @@ public class homepage extends AppCompatActivity implements BottomNavigationBar.O
 
     private BottomNavigationBar bottomNavigationBar;
     int lastSelectedPosition = 3;
-
     private ImageButton imageButton;
+    private ImageButton imageButton2;
 
 //    PopupMenu popupMenu;
 //    Menu menu;
@@ -37,8 +37,8 @@ public class homepage extends AppCompatActivity implements BottomNavigationBar.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);//为了隐藏手机状态栏
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);//为了隐藏手机状态栏
 
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
@@ -57,6 +57,7 @@ public class homepage extends AppCompatActivity implements BottomNavigationBar.O
                 .setFirstSelectedPosition(lastSelectedPosition)
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .initialise();
+                 bottomNavigationBar.setTabSelectedListener(this);
 
         ButterKnife.bind(this);
 
@@ -67,20 +68,26 @@ public class homepage extends AppCompatActivity implements BottomNavigationBar.O
                 startActivity(intent);
             }
         });
+
+        ImageButton imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    show2();
+                    //break;
+                }
+        });
+
     }
 
-
-    @OnClick({
-            R.id.imageButton2})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageButton2:
-                show2();
-                break;
-
-
-        }
-    }
+//    @OnClick({
+//            R.id.imageButton2})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.imageButton2:
+//                show2();
+//                break;
+//        }
+//    }
 
 //        bottomNavigationBar.setTabSelectedListener(this);
 //        Dialog mCameraDialog = new Dialog(this, R.style.my_dialog);
@@ -189,4 +196,6 @@ public class homepage extends AppCompatActivity implements BottomNavigationBar.O
     public void onTabReselected(int position) {
 
     }
+
+
 }

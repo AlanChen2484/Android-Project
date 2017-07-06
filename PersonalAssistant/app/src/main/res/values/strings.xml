@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Personal Assistant</string>
+    <string name="app_name">个人助理</string>
     <string name="action_settings">Settings</string>
     <string name="setting">设置</string>
     <string name="account_set">账户设置</string>
