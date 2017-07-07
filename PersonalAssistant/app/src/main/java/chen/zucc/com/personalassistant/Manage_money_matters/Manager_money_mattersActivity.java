@@ -25,6 +25,7 @@ public class Manager_money_mattersActivity extends AppCompatActivity implements 
         setContentView(R.layout.activity_manager_money_matters);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);//为了隐藏手机状态栏
+
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
 

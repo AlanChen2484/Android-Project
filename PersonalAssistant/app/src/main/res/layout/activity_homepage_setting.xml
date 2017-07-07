@@ -44,6 +44,7 @@
             <LinearLayout style="@style/label_bg_single_layout">
 
                 <TextView
+                    android:id="@+id/aboutus"
                     style="@style/set_left_text"
                     android:text="关于个人助理 " />
 
@@ -79,6 +80,7 @@
             <LinearLayout style="@style/label_bg_single_layout">
 
                 <TextView
+                    android:id="@+id/logout"
                     style="@style/set_left_text"
                     android:text="退出登录" />
 

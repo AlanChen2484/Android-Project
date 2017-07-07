@@ -30,7 +30,7 @@
                     android:background="@drawable/label_bg_shap"
                     android:gravity="center_vertical"
                     android:paddingLeft="16dp"
-                    android:text="花瓣账户"
+                    android:text="本地账户"
                     android:textSize="12sp" />
 
                 <LinearLayout
@@ -88,7 +88,7 @@
                     android:background="@drawable/label_bg_shap"
                     android:gravity="center_vertical"
                     android:paddingLeft="16dp"
-                    android:text="花瓣账户"
+                    android:text="关联账户"
                     android:textSize="12sp" />
 
                 <LinearLayout

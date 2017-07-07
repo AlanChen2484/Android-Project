@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import chen.zucc.com.personalassistant.R;
+import chen.zucc.com.personalassistant.login.LoginActivity;
 
 
 public class SettingActivity extends AppCompatActivity {
@@ -19,6 +20,8 @@ public class SettingActivity extends AppCompatActivity {
     private TextView setting;
     private TextView retroaction;
     private TextView remove;
+    private TextView logout;
+    private TextView aboutus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,15 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        aboutus = (TextView)findViewById(R.id.aboutus);
+        aboutus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, AboutUsActivity.class);
+                SettingActivity.this.startActivity(intent);
+            }
+        });
+
         remove = (TextView)findViewById(R.id.remove);
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +78,17 @@ public class SettingActivity extends AppCompatActivity {
                 SettingActivity.this.startActivity(intent);
             }
         });
+
+        logout = (TextView)findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                Toast.makeText(getApplicationContext(), "您已退出登录", Toast.LENGTH_SHORT).show();
+                SettingActivity.this.startActivity(intent);
+            }
+        });
+
     }
     //初始化
     private void initView() {

@@ -12,5 +12,6 @@
         android:inputType="textEmailAddress"
         android:maxLength="30"
         android:hint="未绑定"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:theme="@style/MyEditText"/>
 </LinearLayout>

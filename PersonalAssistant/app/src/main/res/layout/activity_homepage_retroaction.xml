@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="@style/AppBaseTheme" />
 
     <TextView
         android:id="@+id/textView"
@@ -33,11 +33,11 @@
         android:background="#7fd2d2d2"
         android:enabled="true"
         android:gravity="top"
+        android:hint="请写下你遇到的问题"
         android:inputType="textMultiLine"
         android:maxLines="10"
         android:minLines="8"
-        android:scrollbars="vertical"
-        android:hint="请写下你遇到的问题"/>
+        android:scrollbars="vertical" />
 
     <TextView
         android:id="@+id/textView2"
@@ -75,7 +75,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginTop="16dp"
         android:background="#d0e21616"
-        android:textSize="20dp"
         android:text="提交"
+        android:textSize="20dp"
         android:textStyle="bold" />
 </LinearLayout>

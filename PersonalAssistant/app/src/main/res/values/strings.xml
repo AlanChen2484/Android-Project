@@ -4,6 +4,20 @@
     <string name="setting">设置</string>
     <string name="account_set">账户设置</string>
 
+    <string name="login_success">登录成功</string>
+    <string name="login">登录</string>
+    <string name="Username">用户名</string>
+    <string name="Password">密码</string>
+    <string name="forgot_your_password">忘记密码?</string>
+    <string name="go">确定</string>
+    <string name="trd">第三方登录</string>
+    <string name="repeat_password">重复密码</string>
+    <string name="next">NEXT</string>
+    <string name="register">注册</string>
+    <string name="add_comment">添加评论</string>
+
+    <string name="powerby">Power By：</string>
+
     <!--正则校验码-->
     <string name="phone_reg">^(13[0-9]|14[57]|15[0-9]|18[0-9]|17[0-9])\\d{8}$</string>
     <string name="email_reg">^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)$</string>

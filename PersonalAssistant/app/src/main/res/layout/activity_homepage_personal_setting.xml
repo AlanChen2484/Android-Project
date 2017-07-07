@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:theme="@style/AppBaseTheme"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
 
@@ -36,12 +37,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/roundedImageView"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/homepage_img2" />
+                android:src="@drawable/homepage_img2"
+                app:riv_oval="true" />
+
+            <!--<ImageView-->
+            <!--android:layout_width="72dp"-->
+            <!--android:layout_height="72dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginTop="30dp"-->
+            <!--android:src="@drawable/homepage_img2" />-->
 
             //昵称
 
@@ -54,7 +65,7 @@
                 android:hint="请在这里输入昵称"
                 android:maxLength="30"
                 android:textSize="16sp"
-                app:met_baseColor="@android:color/black"
+                app:met_baseColor="@android:color/darker_gray"
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelText="昵称："
                 app:met_floatingLabelTextColor="@color/blue"
@@ -90,7 +101,7 @@
                 android:hint="请在这里输入所在城市"
                 android:maxLength="30"
                 android:textSize="16sp"
-                app:met_baseColor="@android:color/black"
+                app:met_baseColor="@android:color/darker_gray"
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelText="城市："
                 app:met_floatingLabelTextColor="@color/blue"
@@ -109,14 +120,16 @@
                 android:hint="请在这里输入个人主页"
                 android:maxLength="30"
                 android:textSize="16sp"
-                app:met_baseColor="@android:color/black"
+                app:met_baseColor="@android:color/darker_gray"
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelText="个人主页："
                 app:met_floatingLabelTextColor="@color/blue"
                 app:met_floatingLabelTextSize="14sp"
                 app:met_maxCharacters="30"
                 app:met_primaryColor="@color/blue" />
+
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

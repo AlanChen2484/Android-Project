@@ -12,5 +12,6 @@
         android:inputType="phone"
         android:maxLength="11"
         android:hint="未绑定"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:theme="@style/MyEditText"/>
 </LinearLayout>
