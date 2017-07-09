@@ -1,12 +1,12 @@
 package chen.zucc.com.personalassistant.Manage_money_matters;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
-import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
@@ -18,12 +18,14 @@ import chen.zucc.com.personalassistant.Schedule.ScheduleActivity;
 public class Manager_money_mattersActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
     private BottomNavigationBar bottomNavigationBar;
     int lastSelectedPosition = 2;
+    private ImageButton imageButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_money_matters);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);//为了隐藏手机状态栏
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);//为了隐藏手机状态栏
+
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
 
@@ -36,12 +38,20 @@ public class Manager_money_mattersActivity extends AppCompatActivity implements 
                 .addItem(new BottomNavigationItem(R.mipmap.ic_action_bill, "账本记录").setActiveColorResource(R.color.blue))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_action_managemoney, "财富管理").setActiveColorResource(R.color.blue))
                 .addItem(new BottomNavigationItem(R.mipmap.ic_action_person, "个人主页").setActiveColorResource(R.color.blue))
-//                .setFirstSelectedPosition(0)
                 .setFirstSelectedPosition(lastSelectedPosition)
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
+
+        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton1);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+               Intent intent = new Intent(Manager_money_mattersActivity.this, Asset_AnalysisActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
 
 
     public void onTabSelected(int position) {

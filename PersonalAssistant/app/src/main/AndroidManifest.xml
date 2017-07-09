@@ -4,13 +4,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_schedule"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Schedule.ScheduleActivity"
+            android:name=".login.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,12 +20,55 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Add_schedule.Add_schedule_Activity" />
-        <activity android:name=".Income_expenses.Income_expensesActivity" />
-        <activity android:name=".Manage_money_matters.Manager_money_mattersActivity" />
-        <activity android:name=".Personal_homepage.homepage">
 
-        </activity>
+        <activity
+            android:name=".login.RegisterActivity"
+            android:theme="@style/Translucent" />
+
+        <activity
+            android:name=".Income_expenses.Income_expensesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Manage_money_matters.Manager_money_mattersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Personal_homepage.homepage"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Schedule.ScheduleActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Personal_homepage.SettingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Personal_homepage.AccountsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Personal_homepage.PersonalSettingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Personal_homepage.RetroactionActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Manage_money_matters.Asset_AnalysisActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Manage_money_matters.InvestmentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Personal_homepage.AboutUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
