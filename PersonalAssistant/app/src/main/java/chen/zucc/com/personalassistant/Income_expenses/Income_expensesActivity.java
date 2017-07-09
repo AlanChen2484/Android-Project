@@ -1,15 +1,16 @@
 package chen.zucc.com.personalassistant.Income_expenses;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import chen.zucc.com.personalassistant.Manage_money_matters.Manager_money_mattersActivity;
 import chen.zucc.com.personalassistant.Personal_homepage.homepage;
-import chen.zucc.com.personalassistant.R;
 import chen.zucc.com.personalassistant.Schedule.ScheduleActivity;
 
 public class Income_expensesActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
@@ -18,20 +19,28 @@ public class Income_expensesActivity extends AppCompatActivity implements Bottom
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_income_expenses);
-        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        setContentView(chen.zucc.com.personalassistant.R.layout.activity_income_expenses);
+        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(chen.zucc.com.personalassistant.R.id.bottom_navigation_bar);
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+
+        RoundedImageView viewbtn=(RoundedImageView)findViewById(chen.zucc.com.personalassistant.R.id.roundedImageView);
+        viewbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_1 = new Intent(Income_expensesActivity.this, Income_edit.class);
+                startActivity(intent_1);
+            }
+        });
 
 //     BadgeItem numberBadgeItem = new BadgeItem()
 //               .setBorderWidth(4)
 //               .setBackgroundColor(Color.RED)
 //               .setText("5")
 //             .setHideOnSelect(true);
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.ic_action_schedule, "日程安排").setActiveColorResource(R.color.blue))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_action_bill, "账本记录").setActiveColorResource(R.color.blue))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_action_managemoney, "财富管理").setActiveColorResource(R.color.blue))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_action_person, "个人主页").setActiveColorResource(R.color.blue))
-
+        bottomNavigationBar.addItem(new BottomNavigationItem(chen.zucc.com.personalassistant.R.mipmap.ic_action_schedule, "日程安排").setActiveColorResource(chen.zucc.com.personalassistant.R.color.blue))
+                .addItem(new BottomNavigationItem(chen.zucc.com.personalassistant.R.mipmap.ic_action_bill, "账本记录").setActiveColorResource(chen.zucc.com.personalassistant.R.color.blue))
+                .addItem(new BottomNavigationItem(chen.zucc.com.personalassistant.R.mipmap.ic_action_managemoney, "财富管理").setActiveColorResource(chen.zucc.com.personalassistant.R.color.blue))
+                .addItem(new BottomNavigationItem(chen.zucc.com.personalassistant.R.mipmap.ic_action_person, "个人主页").setActiveColorResource(chen.zucc.com.personalassistant.R.color.blue))
                 .setFirstSelectedPosition(lastSelectedPosition)
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .initialise();

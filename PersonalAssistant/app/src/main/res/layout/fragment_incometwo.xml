@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#ff3d00"
+        android:layout_width="match_parent"
+        android:layout_height="72dp">
+        <TextView
+            android:text="收钱"
+            android:textColor="#fff"
+            android:layout_marginTop="12dp"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:textSize="32sp"
+            android:layout_marginLeft="16dp"/>
+        <EditText
+            android:theme="@style/Editthem"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:textColor="#fff"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:textSize="24sp"
+            android:paddingRight="16dp"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="0.00"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/linear_1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@+id/linear_1"
+                android:id="@+id/linear_2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+                <ImageView
+                    android:background="@mipmap/bus"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
