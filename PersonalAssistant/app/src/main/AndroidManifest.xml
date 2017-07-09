@@ -69,6 +69,18 @@
             android:name=".Personal_homepage.AboutUsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".Schedule.ScheduleAddActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Schedule.EditScheduleActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Income_expenses.Income_edit"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
