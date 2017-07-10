@@ -71,18 +71,30 @@
             android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
+<TextView
+    android:background="#ffffff"
+    android:paddingTop="12dp"
+    android:paddingLeft="16dp"
+    android:textSize="16sp"
+    android:id="@+id/textView7"
+    android:layout_width="wrap_content"
+    android:layout_height="48dp"
+    android:text="完成时间：2017-7-9"
+    android:layout_below="@+id/relative_1"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentStart="true" />
 
     <TextView
         android:paddingLeft="16dp"
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/relative_1"
         android:text="优先级"
         android:background="#ffffff"
         android:paddingTop="8dp"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentStart="true" />
     <RadioGroup
         android:background="#ffffff"
         android:id="@+id/radioGroup"

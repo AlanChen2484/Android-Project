@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import chen.zucc.com.personalassistant.DataBaseHelper.DataBaseHelper;
 import chen.zucc.com.personalassistant.R;
 import chen.zucc.com.personalassistant.Schedule.ScheduleActivity;
 
@@ -26,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     CardView cv;
     FloatingActionButton fab;
 
+    private DataBaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,9 @@ public class LoginActivity extends AppCompatActivity {
 
 //        ButterKnife.inject(this);
         ButterKnife.bind(this);
+        dbHelper = new DataBaseHelper(this, "BookStore2.db", null, 1);
+        dbHelper.getWritableDatabase();
+
 
         etUsername = (EditText)findViewById(R.id.et_username);
         etPassword = (EditText)findViewById(R.id.et_password);
