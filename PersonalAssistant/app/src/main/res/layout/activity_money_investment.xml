@@ -177,6 +177,47 @@
                     android:theme="@style/MyEditText" />
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp">
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="投资起始时间为："
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:id="@+id/DateView1"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
+
+                <ImageButton
+                    android:id="@+id/imageBtn_1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#00000000"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_action_schedule1" />
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,52 +225,6 @@
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="预期年化收益率："
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/editText3"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:ems="5"
-                    android:inputType="numberDecimal"
-                    android:theme="@style/MyEditText" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="%"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <ToggleButton
-                    android:id="@+id/toggleButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:padding="8dp"
-                    android:text="ToggleButton"
-                    android:textOff="定期"
-                    android:textOn="活期"
-                    android:theme="@style/MyEditText" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -238,22 +233,29 @@
                     android:layout_marginStart="16dp"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="投资起始时间："
-                    android:textSize="16sp"
+                    android:text="投资结束时间为："
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/DateView2"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:paddingTop="8dp"
-                    android:text="投资结束时间："
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="8dp"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
 
+                <ImageButton
+                    android:id="@+id/imageBtn_2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#00000000"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_action_schedule1" />
 
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

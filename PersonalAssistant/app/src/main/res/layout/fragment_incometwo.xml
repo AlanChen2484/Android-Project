@@ -1,125 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:background="#ff3d00"
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="horizontal"
+    android:background="#ff3d00"
+    android:layout_width="match_parent"
+    android:layout_height="72dp">
+    <TextView
+        android:text="花钱"
+        android:textColor="#fff"
+        android:layout_marginTop="12dp"
+        android:layout_width="72dp"
+        android:layout_height="48dp"
+        android:textSize="32sp"
+        android:layout_marginLeft="16dp"/>
+    <EditText
+        android:theme="@style/Editthem"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textColor="#fff"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:textSize="24sp"
+        android:paddingRight="16dp"
+        android:gravity="right"
         android:layout_width="match_parent"
-        android:layout_height="72dp">
+        android:layout_height="48dp"
+        android:hint="0.00"/>
+</LinearLayout>
+<LinearLayout
+    android:gravity="center_horizontal"
+    android:id="@+id/linear_1"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/huaqian" />
         <TextView
-            android:text="收钱"
-            android:textColor="#fff"
-            android:layout_marginTop="12dp"
-            android:layout_width="72dp"
-            android:layout_height="48dp"
-            android:textSize="32sp"
-            android:layout_marginLeft="16dp"/>
-        <EditText
-            android:theme="@style/Editthem"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:textColor="#fff"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="12dp"
-            android:textSize="24sp"
-            android:paddingRight="16dp"
-            android:gravity="right"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="0.00"/>
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="花钱"/>
     </LinearLayout>
-    <ScrollView
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/canyin" />
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="餐饮"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/bus" />
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交通"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginStart="16dp"
+            android:id="@+id/imageView2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/gouwu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="购物" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/fahongbao" />
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发红包"/>
+    </LinearLayout>
+
+</LinearLayout>
+<LinearLayout
+    android:gravity="center_horizontal"
+    android:id="@+id/linear_2"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:layout_below="@+id/linear_1"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/riyongpin" />
+        <TextView
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日用品"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_marginLeft="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/lingshi" />
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="零食"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_marginLeft="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/zhufang" />
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="住房"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_marginLeft="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/huazhaungpin" />
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="化妆品 "/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_marginLeft="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/other" />
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他"/>
+    </LinearLayout>
+</LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/linear_1"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_below="@+id/linear_1"
-                android:id="@+id/linear_2"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-                <ImageView
-                    android:background="@mipmap/bus"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp" />
-            </LinearLayout>
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="#ffffff">
+
+            <Button
+                android:id="@+id/button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="16dp"
+                android:background="#ffffff"
+                android:text="取消" />
+
+            <Button
+                android:id="@+id/button_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#ffffff"
+                android:text="确认" />
+
         </RelativeLayout>
-    </ScrollView>
+
+        <ImageButton
+            android:id="@+id/imageBtn_s2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@mipmap/schedule" />
+
+        <TextView
+            android:id="@+id/textView_s2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="2017-7-9"
+            android:textSize="16sp"
+            android:layout_alignBottom="@+id/imageBtn_s2"
+            android:layout_toEndOf="@+id/imageBtn_s2" />
+    </RelativeLayout>
 </LinearLayout>

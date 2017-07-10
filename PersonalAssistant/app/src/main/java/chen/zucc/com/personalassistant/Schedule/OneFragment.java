@@ -1,6 +1,7 @@
 package chen.zucc.com.personalassistant.Schedule;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,8 +19,8 @@ import chen.zucc.com.personalassistant.R;
  */
 
 public class OneFragment extends Fragment {
-   private ImageButton imageButton;
-    private CardView cardview;
+
+
     private TextView tv;
     private String name;
     public OneFragment(String fName){
@@ -36,6 +37,25 @@ public class OneFragment extends Fragment {
 //               getActivity().startActivity(intent_1);
 //            }
 //        });
+        ImageButton btn_1=(ImageButton)view.findViewById(R.id.imageBtn_ture);
+        btn_1.setOnClickListener(new View.OnClickListener() {
+                                     @Override
+                                     public void onClick(View v) {
+
+                                     }
+                                 });
+        ImageButton imageButton1=(ImageButton)view.findViewById(R.id.imageBtn_ture);
+        imageButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder  = new AlertDialog.Builder(getActivity());
+                builder.setTitle("完成日程" ) ;
+                builder.setMessage("是否已经完成了此日程？" ) ;
+                builder.setNegativeButton("否",null);
+                builder.setPositiveButton("是",null);
+                builder.show();
+            }
+        });
         CardView cardView=(CardView)view.findViewById(R.id.cardView_1);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +83,7 @@ public class OneFragment extends Fragment {
         });
         return view;
     }
+
 
 
 

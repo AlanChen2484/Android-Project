@@ -14,18 +14,14 @@ import android.widget.Toast;
 
 import chen.zucc.com.personalassistant.R;
 
-/**
- * Created by chenchongkang on 2017/7/6.
- */
-
-public class EditScheduleActivity extends Activity implements View.OnClickListener{
+public class EditScheduledoneActivity extends Activity implements View.OnClickListener{
     private ImageButton mMenuTv;
     private PopupWindow mPopWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editschedule);
+        setContentView(R.layout.activity_editschedule_done);
         mMenuTv = (ImageButton) findViewById(R.id.imageBtn_2);
         mMenuTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,13 +33,13 @@ public class EditScheduleActivity extends Activity implements View.OnClickListen
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_1 = new Intent(EditScheduleActivity.this, ScheduleActivity.class);
+                Intent intent_1 = new Intent(EditScheduledoneActivity.this, ScheduleActivity.class);
                 startActivity(intent_1);
             }
         });
     }
     private void showPopupWindow() {
-        View contentView = LayoutInflater.from(EditScheduleActivity.this).inflate(R.layout.activity_schedule_popuplayout, null);
+        View contentView = LayoutInflater.from(EditScheduledoneActivity.this).inflate(R.layout.activity_schedule_popuplayout, null);
         mPopWindow = new PopupWindow(contentView);
         mPopWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -55,7 +51,7 @@ public class EditScheduleActivity extends Activity implements View.OnClickListen
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);
 
-        View rootview = LayoutInflater.from(EditScheduleActivity.this).inflate(R.layout.activity_editschedule, null);
+        View rootview = LayoutInflater.from(EditScheduledoneActivity.this).inflate(R.layout.activity_editschedule_done, null);
         mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 300, 1150);    }
 
     @Override

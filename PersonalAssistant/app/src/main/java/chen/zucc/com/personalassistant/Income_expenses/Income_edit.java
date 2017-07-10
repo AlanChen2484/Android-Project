@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import chen.zucc.com.personalassistant.R;
+
 public class Income_edit extends AppCompatActivity implements View.OnClickListener {
     private IncomeFragmentOne f1;
     private IncomeFragmentTwo f2;
@@ -17,14 +19,14 @@ public class Income_edit extends AppCompatActivity implements View.OnClickListen
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(chen.zucc.com.personalassistant.R.layout.activity_income_edit);
-        foot1 = (Button) findViewById(chen.zucc.com.personalassistant.R.id.btn1);
-        foot2 = (Button) findViewById(chen.zucc.com.personalassistant.R.id.btn2);
+        setContentView(R.layout.activity_income_edit);
+        foot1 = (Button) findViewById(R.id.btn1);
+        foot2 = (Button) findViewById(R.id.btn2);
         foot1.setOnClickListener(this);
         foot2.setOnClickListener(this);
         //第一次初始化首页默认显示第一个fragment
         initFragment1();
-         ImageButton button=(ImageButton) findViewById(chen.zucc.com.personalassistant.R.id.imageBtn_1);
+         ImageButton button=(ImageButton) findViewById(R.id.imageBtn_1);
          button.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -39,7 +41,7 @@ public class Income_edit extends AppCompatActivity implements View.OnClickListen
         //第一种方式（add），初始化fragment并添加到事务中，如果为null就new一个
         if(f1 == null){
             f1= new IncomeFragmentOne();
-            transaction.add(chen.zucc.com.personalassistant.R.id.income_frame_layout, f1);
+            transaction.add(R.id.income_frame_layout, f1);
         }
         //隐藏所有fragment
         hideFragment(transaction);
@@ -53,7 +55,7 @@ public class Income_edit extends AppCompatActivity implements View.OnClickListen
 
         if(f2 == null){
             f2 = new IncomeFragmentTwo();
-            transaction.add(chen.zucc.com.personalassistant.R.id.income_frame_layout,f2);
+            transaction.add(R.id.income_frame_layout,f2);
         }
         hideFragment(transaction);
         transaction.show(f2);
