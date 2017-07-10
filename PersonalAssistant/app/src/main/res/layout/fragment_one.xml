@@ -58,7 +58,7 @@
          <TextView
              android:text="开会"
              android:id="@+id/textView_1"
-             android:layout_width="wrap_content"
+             android:layout_width="match_parent"
              android:layout_height="24dp"
              android:layout_marginStart="72dp"
              android:layout_marginTop="8dp"
@@ -67,20 +67,12 @@
              android:paddingTop="4dp"
              android:text="2017/07/08"
              android:id="@+id/textView_2"
-             android:layout_width="wrap_content"
+             android:layout_width="match_parent"
              android:layout_height="24dp"
              android:layout_below="@+id/textView_1"
              android:layout_marginStart="72dp"
              android:layout_marginTop="4dp"
              android:textSize="12dp"/>
-         <ImageButton
-             android:id="@+id/imageBtn_ture"
-             android:background="@mipmap/ic_action_true"
-             android:layout_marginEnd="16dp"
-             android:layout_marginTop="24dp"
-             android:layout_alignParentRight="true"
-             android:layout_width="24dp"
-             android:layout_height="24dp" />
 
      </RelativeLayout>
      </android.support.v7.widget.CardView>

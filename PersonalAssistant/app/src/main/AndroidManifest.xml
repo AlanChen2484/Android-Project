@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
 
         <activity
             android:name=".login.RegisterActivity"
@@ -78,10 +79,6 @@
 
         <activity
             android:name=".Income_expenses.Income_edit"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".Schedule.EditScheduledoneActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
