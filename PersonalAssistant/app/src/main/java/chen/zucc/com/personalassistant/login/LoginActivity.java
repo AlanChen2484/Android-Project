@@ -2,6 +2,8 @@ package chen.zucc.com.personalassistant.login;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import chen.zucc.com.personalassistant.DataBaseHelper.DataBaseHelper;
 import chen.zucc.com.personalassistant.R;
@@ -20,8 +23,8 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText etUsername;
-    EditText etPassword;
+    private EditText etUsername;
+    private EditText etPassword;
     Button btGo;
     Button btTrd;
     CardView cv;
@@ -38,17 +41,41 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         dbHelper = new DataBaseHelper(this, "PersonalAssistant.db", null, 1);
-        dbHelper.getWritableDatabase();
 
-        etUsername = (EditText)findViewById(R.id.et_username);
-        etPassword = (EditText)findViewById(R.id.et_password);
-        btGo = (Button)findViewById(R.id.bt_go);
-        btTrd = (Button)findViewById(R.id.bt_trd);
-        cv = (CardView)findViewById(R.id.cv);
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        etUsername = (EditText) findViewById(R.id.et_username);
+        etPassword = (EditText) findViewById(R.id.et_password);
+        btGo = (Button) findViewById(R.id.bt_go);
+        btTrd = (Button) findViewById(R.id.bt_trd);
+        cv = (CardView) findViewById(R.id.cv);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
     }
 
+    //点击登录按钮
+    public boolean loginClicked() {
+        etUsername = (EditText) findViewById(R.id.et_username);
+        etPassword = (EditText) findViewById(R.id.et_password);
+        String userName = etUsername.getText().toString();
+        String passWord = etPassword.getText().toString();
+        if (login(userName, passWord)) {
+            Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            Toast.makeText(LoginActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
 
+    public boolean login(String username, String password) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String sql = "select * from Login where Login_UserName=? and Login_Password=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{username, password});
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        }
+        return false;
+    }
 
     @OnClick({R.id.bt_go, R.id.fab, R.id.bt_trd})
     public void onClick(View view) {
@@ -57,26 +84,25 @@ public class LoginActivity extends AppCompatActivity {
                 getWindow().setExitTransition(null);
                 getWindow().setEnterTransition(null);
 
-                ActivityOptions options =
-                        ActivityOptions.makeSceneTransitionAnimation(this, fab, fab.getTransitionName());
-                Intent intent = new Intent(this,RegisterActivity.class);
-                startActivity(intent,options.toBundle());
-
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fab, fab.getTransitionName());
+                Intent intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent, options.toBundle());
                 break;
             case R.id.bt_go:
-
-                Intent i2 = new Intent(this,ScheduleActivity.class);
-                startActivity(i2);
-                finish();
-
+                if (loginClicked()) {
+                    Intent i2 = new Intent(this, ScheduleActivity.class);
+                    startActivity(i2);
+                    finish();
+                }
                 break;
             case R.id.bt_trd:
 
 //                Intent i3 = new Intent(this,PersonalInformationActivity.class);
 //                startActivity(i3);
 //                finish();
-
                 break;
         }
     }
+
+
 }
