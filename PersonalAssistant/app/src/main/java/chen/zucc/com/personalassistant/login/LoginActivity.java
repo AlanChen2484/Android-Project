@@ -58,10 +58,10 @@ public class LoginActivity extends AppCompatActivity {
         String userName = etUsername.getText().toString();
         String passWord = etPassword.getText().toString();
         if (login(userName, passWord)) {
-            Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
             return true;
         } else {
-            Toast.makeText(LoginActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "用户名密码不正确", Toast.LENGTH_SHORT).show();
             return false;
         }
     }

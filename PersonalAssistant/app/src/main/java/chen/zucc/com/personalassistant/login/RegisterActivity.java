@@ -109,13 +109,13 @@ public class RegisterActivity extends AppCompatActivity {
     //检验用户名是否已存在
     public boolean CheckIsDataAlreadyInDBorNot(String value) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String Query = "Select * from Login where name =?";
-//        Cursor cursor = db.rawQuery(Query, new String[]{value});
-//        if (cursor.getCount() > 0) {
-//            cursor.close();
-//            return true;
-//        }
-//        cursor.close();
+        String Query = "Select * from Login where Login_UserName =?";
+        Cursor cursor = db.rawQuery(Query, new String[]{value});
+        if (cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        }
+        cursor.close();
         return false;
     }
 
