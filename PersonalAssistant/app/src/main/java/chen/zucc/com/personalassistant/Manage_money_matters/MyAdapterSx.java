@@ -70,6 +70,7 @@ public class MyAdapterSx extends BaseAdapter {
 
         ViewHolder holder;
         if(convertView == null) {
+
             convertView = LayoutInflater.from(context).inflate(R.layout.listitem_sx, null);
             holder = new ViewHolder();
 

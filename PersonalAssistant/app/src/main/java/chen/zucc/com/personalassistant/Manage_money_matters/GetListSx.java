@@ -18,6 +18,7 @@ public class GetListSx {
                 "小明","小红","小白","小钱", "小李", "小陈"};
         String[] texts = {"你好啊","嘿嘿嘿","哈哈哈","呵呵呵", "嘻嘻嘻", "啧啧啧",
                 "你好啊","嘿嘿嘿","哈哈哈","呵呵呵", "嘻嘻嘻", "啧啧啧"};
+
         int[] resIds = {R.mipmap.ic_action_bill , R.mipmap.ic_action_bill, R.mipmap.ic_action_bill, R.mipmap.ic_action_bill,
                 R.mipmap.ic_action_bill, R.mipmap.ic_action_bill, R.mipmap.ic_action_bill ,
                 R.mipmap.ic_action_bill, R.mipmap.ic_action_bill,R.mipmap.ic_action_bill, R.mipmap.ic_action_bill, R.mipmap.ic_action_bill};
