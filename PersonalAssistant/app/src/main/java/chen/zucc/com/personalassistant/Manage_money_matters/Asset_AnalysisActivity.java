@@ -3,6 +3,8 @@ package chen.zucc.com.personalassistant.Manage_money_matters;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.github.kimkevin.slidingicontablayout.wigets.SlidingIconTabLayout;
 
@@ -13,6 +15,8 @@ public class Asset_AnalysisActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private MainTabAdapter mAdapter;
     int lastSelectedPosition = 2;
+    private ImageButton imageButtonback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +25,13 @@ public class Asset_AnalysisActivity extends AppCompatActivity {
         mAdapter = new MainTabAdapter(this);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mAdapter);
+
+        imageButtonback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         SlidingIconTabLayout mSlidingTabLayout = (SlidingIconTabLayout) findViewById(R.id.tabs);
 

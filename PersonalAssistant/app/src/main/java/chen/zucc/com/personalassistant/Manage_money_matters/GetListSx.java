@@ -7,7 +7,6 @@ import chen.zucc.com.personalassistant.R;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class GetListSx {
 
     public static List<InfoSx> lists = new ArrayList<InfoSx>();
