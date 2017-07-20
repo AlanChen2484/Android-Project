@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="chen.zucc.com.personalassistant.Income_expenses.Income_expensesActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0">
+
+        <TextView
+            android:id="@+id/shenyu_chaozhi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@+id/remaining"
+            android:padding="16dp"
+            android:text="剩余:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/remaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView_2"
+            android:padding="16dp"
+            android:text="00.00"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView_2"
+            android:layout_width="100dp"
+            android:layout_height="72dp"
+            android:layout_above="@+id/roundedImageView"
+            android:layout_alignRight="@+id/view_1"
+            android:layout_below="@+id/remaining"
+            android:layout_marginRight="52dp"
+            android:layout_marginTop="24dp"
+            android:text="总收入" />
+
+        <TextView
+            android:id="@+id/textView_3"
+            android:layout_width="100dp"
+            android:layout_height="72dp"
+            android:layout_above="@+id/roundedImageView"
+            android:layout_alignLeft="@+id/view_1"
+            android:layout_below="@+id/remaining"
+            android:layout_marginLeft="72dp"
+            android:layout_marginTop="24dp"
+            android:text="总支出" />
+
+        <View
+            android:id="@+id/view_1"
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/remaining"
+            android:layout_centerHorizontal="true"
+            android:background="#c8e6c9"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/roundedImageView"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_below="@+id/view_1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="33dp"
+            android:src="@drawable/edit"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@+id/totalIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView_2"
+            android:layout_below="@+id/textView_2"
+            android:layout_marginTop="14dp"
+            android:text="00.00" />
+
+        <TextView
+            android:id="@+id/totalExpenses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/totalIncome"
+            android:layout_alignStart="@+id/textView_3"
+            android:text="00.00" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/income_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/activity_income_expenser_list">
+
+    </ListView>
+
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="0" />
+
+
+</LinearLayout>

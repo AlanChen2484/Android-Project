@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#dddddd"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relative_1"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="#1e88e5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <ImageButton
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:id="@+id/imageBtn_1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@mipmap/back1"
+            />
+        <TextView
+            android:id="@+id/textView_2"
+            android:layout_marginTop="8dp"
+            android:layout_alignStart="@+id/imageView_1"
+            android:layout_marginStart="56dp"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:text="个人"
+            android:textSize="16sp"
+            android:textColor="#ffffff"/>
+        <EditText
+            android:maxLength="20"
+            android:layout_marginLeft="16dp"
+            android:theme="@style/Editthem"
+            android:text="日程描述"
+            android:id="@+id/textView_3"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/textView_2"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:textSize="20sp"
+            android:textColor="#ffffff"/>
+        <ImageView
+            android:id="@+id/imageView_2"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/textView_3"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/ic_action_alarm"/>
+        <TextView
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="周三 00:00/12/07/2017"
+            android:id="@+id/textView_6"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@+id/textView_3"
+            android:layout_toRightOf="@+id/imageView_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/imageBtn_2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@mipmap/ic_action_point"
+            android:layout_marginEnd="16dp"
+            android:layout_alignTop="@+id/imageView_2"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+<TextView
+    android:background="#ffffff"
+    android:paddingTop="12dp"
+    android:paddingLeft="16dp"
+    android:textSize="16sp"
+    android:id="@+id/textView7"
+    android:layout_width="wrap_content"
+    android:layout_height="48dp"
+    android:text="完成时间：2017-7-9"
+    android:layout_below="@+id/relative_1"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentStart="true" />
+
+    <TextView
+        android:paddingLeft="16dp"
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="优先级"
+        android:background="#ffffff"
+        android:paddingTop="8dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentStart="true" />
+    <RadioGroup
+        android:background="#ffffff"
+        android:id="@+id/radioGroup"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_marginLeft="16dp"
+            android:id="@+id/dotNet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高" />
+
+        <RadioButton
+            android:layout_marginLeft="16dp"
+        android:id="@+id/php"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="中" />
+
+        <RadioButton
+        android:layout_marginLeft="16dp"
+        android:id="@+id/java"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="低" />
+
+
+
+    </RadioGroup>
+
+
+
+    <TextView
+        android:paddingLeft="16dp"
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="类别"
+        android:background="#ffffff"
+        android:paddingTop="8dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignParentStart="true" />/>
+
+    <RadioGroup
+        android:background="#ffffff"
+        android:id="@+id/radioGroup3"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp" >
+
+        <RadioButton
+            android:layout_marginLeft="16dp"
+            android:id="@+id/radioButton10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="工作" />
+
+        <RadioButton
+            android:layout_marginLeft="16dp"
+            android:id="@+id/radioButton9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="生活" />
+
+        <RadioButton
+            android:layout_marginLeft="16dp"
+            android:id="@+id/radioButton8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="娱乐" />
+
+        <RadioButton
+            android:layout_marginLeft="16dp"
+            android:id="@+id/radioButton7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="健康" />
+
+        <RadioButton
+            android:layout_marginLeft="16dp"
+            android:id="@+id/radioButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="其他" />
+    </RadioGroup>
+
+    <TextView
+        android:background="#ffffff"
+        android:paddingTop="24dp"
+        android:textSize="16dp"
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_alignParentStart="true"
+        android:text="日程留言: "
+        android:layout_below="@+id/radioGroup3"
+        android:layout_above="@+id/imageView_4" />
+    <EditText
+        android:background="#ffffff"
+        android:hint="写下你今天精彩瞬间"
+        android:layout_toEndOf="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:id="@+id/editText"
+        android:layout_below="@+id/radioGroup3" />
+
+    <ImageView
+        android:id="@+id/imageView_4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#424242"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentStart="true" />
+    <RelativeLayout
+        android:background="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <Button
+            android:background="#ffffff"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:id="@+id/button_1"/>
+        <Button
+            android:background="#ffffff"
+            android:layout_marginRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认"
+            android:id="@+id/button_2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

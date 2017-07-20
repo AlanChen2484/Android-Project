@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="48dp"
+    android:background="@mipmap/duihuakuang"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="2dp">
+
+    <TextView
+        android:id="@+id/pop_computer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="时间" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="24dp"
+        android:background="#bdbdbd" />
+
+    <TextView
+        android:id="@+id/pop_financial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="图片" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="24dp"
+        android:background="#bdbdbd" />
+
+    <TextView
+        android:id="@+id/pop_manage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="删除" />
+</LinearLayout>

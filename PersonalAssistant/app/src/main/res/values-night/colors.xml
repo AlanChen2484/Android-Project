@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text">@android:color/white</color>
+    <color name="background">#C8050505</color>
+    <color name="buttonBackground">@android:color/darker_gray</color>
+
+
+    <color name="teal">#00796B</color>
+    <color name="brown">#8D6E63</color>
+    <color name="blue">#C8050505</color>
+    <color name="grey">#bfbfbf</color>
+    <color name="orange">#f29840</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#BB030303</color>
+    <color name="lightgrey">#e6e6e6</color>/
+
+    <color name="colorPrimary">@android:color/darker_gray</color>
+    <color name="colorPrimaryDark">@android:color/black</color>
+</resources>

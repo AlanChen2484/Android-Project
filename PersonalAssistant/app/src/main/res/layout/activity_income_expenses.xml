@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_centerHorizontal="true"
+    android:background="@color/background"
     tools:context="chen.zucc.com.personalassistant.Income_expenses.Income_expensesActivity">
 
     <RelativeLayout
@@ -14,13 +15,23 @@
         android:layout_weight="0">
 
         <TextView
-            android:id="@+id/textView_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/remaining"
             android:layout_centerHorizontal="true"
             android:padding="16dp"
-            android:text="剩余1500.00"
+            android:text="剩余:"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/remaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="00.00"
+            android:textSize="16sp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView_2" />
 
         <TextView
             android:id="@+id/textView_2"
@@ -28,10 +39,10 @@
             android:layout_height="72dp"
             android:layout_above="@+id/roundedImageView"
             android:layout_alignRight="@+id/view_1"
-            android:layout_below="@+id/textView_1"
-            android:layout_marginRight="72dp"
+            android:layout_below="@+id/remaining"
+            android:layout_marginRight="52dp"
             android:layout_marginTop="24dp"
-            android:text="十月收入" />
+            android:text="总收入" />
 
         <TextView
             android:id="@+id/textView_3"
@@ -39,18 +50,19 @@
             android:layout_height="72dp"
             android:layout_above="@+id/roundedImageView"
             android:layout_alignLeft="@+id/view_1"
-            android:layout_below="@+id/textView_1"
+            android:layout_below="@+id/remaining"
             android:layout_marginLeft="72dp"
             android:layout_marginTop="24dp"
-            android:text="十月支出" />
+            android:text="总支出" />
 
         <View
             android:id="@+id/view_1"
             android:layout_width="1dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/textView_1"
+            android:layout_below="@+id/remaining"
             android:layout_centerHorizontal="true"
-            android:background="#c8e6c9"></View>
+            android:background="#c8e6c9">
+        </View>
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/roundedImageView"
@@ -64,86 +76,29 @@
             app:riv_oval="true" />
 
         <TextView
-            android:id="@+id/textView_4"
+            android:id="@+id/totalIncome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView_2"
             android:layout_below="@+id/textView_2"
             android:layout_marginTop="14dp"
-            android:text="1500.00" />
+            android:text="00.00" />
 
         <TextView
-            android:id="@+id/textView_5"
+            android:id="@+id/totalExpenses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2500.00"
-            android:layout_alignBaseline="@+id/textView_4"
-            android:layout_alignBottom="@+id/textView_4"
+            android:text="00.00"
+            android:layout_alignBaseline="@+id/totalIncome"
             android:layout_alignStart="@+id/textView_3" />
     </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView_1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <RelativeLayout
-            android:id="@+id/relative_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-
-            <TextView
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="24dp"
-                android:id="@+id/textView_6"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_alignRight="@+id/view_2"
-                android:text="今天" />
-            <TextView
-                android:layout_marginTop="24dp"
-                android:id="@+id/textView_7"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:layout_alignLeft="@+id/view_2"
-                android:paddingStart="16dp"
-                android:text="-161.00" />
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_marginTop="24dp"
-                android:layout_below="@+id/textView_6"
-                android:id="@+id/roundedImageView_2"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginRight="4dp"
-                android:layout_marginStart="33dp"
-                android:background="@mipmap/bus"
-                app:riv_oval="true" />
-
-            <TextView
-                android:text="交通65.00"
-                android:id="@+id/textView_8"
-                android:layout_marginTop="11dp"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_alignTop="@+id/roundedImageView_2"
-                android:layout_toEndOf="@+id/roundedImageView_2"
-                android:layout_marginStart="9dp" />
-            <View
-                android:id="@+id/view_2"
-                android:layout_alignParentTop="true"
-                android:layout_width="1dp"
-                android:layout_height="400dp"
-                android:layout_centerHorizontal="true"
-                android:background="#c8e6c9">
-            </View>
-        </RelativeLayout>
-    </ScrollView>
-
+<ListView
+    android:id="@+id/income_list"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    tools:listitem="@layout/activity_income_expenser_list">
+   </ListView>
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
