@@ -1,21 +1,15 @@
 package com.example.quxing.quxing.Wode;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.quxing.quxing.Fabu.FabuActivity;
-import com.example.quxing.quxing.MainActivity;
+import com.example.quxing.quxing.Main.MainActivity;
 import com.example.quxing.quxing.R;
 import com.example.quxing.quxing.Xiaoxi.XiaoxiActivity;
 
@@ -24,8 +18,6 @@ public class WodeActivity extends AppCompatActivity implements BottomNavigationB
 
     private BottomNavigationBar bottomNavigationBar;
     int lastSelectedPosition = 3;//定义页码
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,24 +92,24 @@ public class WodeActivity extends AppCompatActivity implements BottomNavigationB
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.rl_sz:
-//                Intent intent_1 = new Intent(getActivity(),PersonalFgSz.class);
-//                startActivity(intent_1);
-//                break;
-//            case R.id.rl_xz:
-//                Intent intent_2 = new Intent(getActivity(),PersonalFgXz.class);
-//                startActivity(intent_2);
-//                break;
-//            case R.id.rl_sc:
-//                Intent intent_3 = new Intent(getActivity(),PersonalFgSc.class);
-//                startActivity(intent_3);
-//                break;
+            case R.id.wode_collection:
+                Intent intent_1 = new Intent(this,Wode_CollectionActivity.class);
+                startActivity(intent_1);
+                break;
+            case R.id.wode_evaluation:
+                Intent intent_2 = new Intent(this,Wode_EvaluationActivity.class);
+                startActivity(intent_2);
+                break;
+            case R.id.wode_follow:
+                Intent intent_3 = new Intent(this,Wode_FollowActivity.class);
+                startActivity(intent_3);
+                break;
             case R.id.wode_about:
                 Intent intent_4 = new Intent(this,Wode_AboutActivity.class);
                 startActivity(intent_4);
                 break;
-            case R.id.wode_seeting:
-                Intent intent_5 = new Intent(this,Wode_SeetingActivity.class);
+            case R.id.wode_setting:
+                Intent intent_5 = new Intent(this,Wode_SettingActivity.class);
                 startActivity(intent_5);
                 break;
             default:

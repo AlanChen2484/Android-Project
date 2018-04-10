@@ -48,6 +48,7 @@ public class AccountsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         initView();
+
         phone_set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

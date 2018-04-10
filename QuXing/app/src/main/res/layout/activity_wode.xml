@@ -15,7 +15,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="?attr/colorPrimary"
             android:fitsSystemWindows="true"
             android:minHeight="?attr/actionBarSize"
@@ -30,7 +30,7 @@
                 android:singleLine="true"
                 android:text="我的"
                 android:textColor="@color/white"
-                android:textSize="22sp" />
+                android:textSize="20dp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -39,7 +39,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-
         android:background="@drawable/ic_wode_personalbackground"
         android:gravity="center">
 
@@ -63,20 +62,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:background="@color/white">
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/wode_collection"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClick"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/collection"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:src="@mipmap/ic_wode_collection" />
@@ -86,8 +88,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/collection"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:text="收藏" />
+                android:layout_marginTop="4dp"
+                android:text="收藏"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -95,18 +98,21 @@
             android:layout_width="0.5dp"
             android:layout_height="70dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/grey"/>
+            android:background="@color/grey" />
 
         <LinearLayout
+            android:id="@+id/wode_evaluation"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClick"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/evaluate"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:src="@mipmap/ic_wode_evaluate" />
@@ -117,8 +123,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/collection"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:text="待评价活动" />
+                android:layout_marginTop="4dp"
+                android:text="待评价活动"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -126,43 +133,47 @@
             android:layout_width="0.5dp"
             android:layout_height="70dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/grey"/>
+            android:background="@color/grey" />
 
         <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+            android:id="@+id/wode_follow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/follow"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:src="@mipmap/ic_wode_follow" />
+            <ImageView
+                android:id="@+id/follow"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/ic_wode_follow" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/collection"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="关注主办方" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/collection"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="关注主办方"
+                android:textSize="12dp" />
 
-    </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 
     <RelativeLayout
-        android:id="@+id/wode_seeting"
+        android:id="@+id/wode_setting"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:background="@color/white"
-        android:onClick="onClick"
-        android:clickable="true">
+        android:clickable="true"
+        android:onClick="onClick">
 
         <ImageView
             android:layout_width="24dp"
@@ -192,7 +203,7 @@
         android:layout_height="0.2dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/grey" >
+        android:background="@color/grey">
 
     </View>
 
@@ -201,8 +212,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/white"
-        android:onClick="onClick"
-        android:clickable="true">
+        android:clickable="true"
+        android:onClick="onClick">
 
         <ImageView
             android:layout_width="24dp"

@@ -15,7 +15,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="?attr/colorPrimary"
             android:fitsSystemWindows="true"
             android:minHeight="?attr/actionBarSize"
@@ -30,7 +30,7 @@
                 android:singleLine="true"
                 android:text="消息"
                 android:textColor="@color/white"
-                android:textSize="22sp" />
+                android:textSize="20sp" />
 
         </android.support.v7.widget.Toolbar>
 

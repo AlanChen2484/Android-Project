@@ -1,53 +1,55 @@
 package com.example.quxing.quxing.Fabu;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.example.quxing.quxing.MainActivity;
+import com.example.quxing.quxing.Main.MainActivity;
+import com.example.quxing.quxing.Main.ViewPagerAdapter;
 import com.example.quxing.quxing.R;
 import com.example.quxing.quxing.Wode.WodeActivity;
 import com.example.quxing.quxing.Xiaoxi.XiaoxiActivity;
+import com.github.kimkevin.slidingicontablayout.wigets.SlidingIconTabLayout;
 
-public class FabuActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener,RadioGroup.OnCheckedChangeListener,
-        ViewPager.OnPageChangeListener{
+import java.util.ArrayList;
+import java.util.List;
 
-    private RadioGroup rg_tab_bar;
-    private RadioButton rb_channel;
-    private RadioButton rb_message;
-    private ViewPager vpager;
+public class FabuActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
 
-    private FabuFragmentPagerAdapter mAdapter;
-
-    //几个代表页面的常量
-    public static final int PAGE_ONE = 0;
-    public static final int PAGE_TWO = 1;
-
-
+    private ViewPager mViewPager;
+    private FabuTabAdapter mAdapter;
 
     private BottomNavigationBar bottomNavigationBar;
     int lastSelectedPosition = 1;//定义页码
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fabu);
 
+        mAdapter = new FabuTabAdapter(this);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mAdapter);
+
 //启用Toolbar，隐藏Title
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
-        //切换Fragment
-        mAdapter = new FabuFragmentPagerAdapter(getSupportFragmentManager());
-        bindViews();
-        rb_channel.setChecked(true);
 
         //BottomNavigationBar-底部导航栏
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar1);
@@ -65,7 +67,22 @@ public class FabuActivity extends AppCompatActivity implements BottomNavigationB
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
+
+        SlidingIconTabLayout mSlidingTabLayout = (SlidingIconTabLayout) findViewById(R.id.tabs);
+
+        mSlidingTabLayout.setCustomTabView(R.layout.tab_txt_layout, R.id.tab_name_txt);//放的是导航栏的内容
+
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingIconTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.lightblue);  //导航栏下面的横线的颜色
+            }
+        });
+
+        mSlidingTabLayout.setViewPager(mViewPager);
+
     }
+
 
     public void onTabSelected(int position) {
         lastSelectedPosition = position;
@@ -105,75 +122,26 @@ public class FabuActivity extends AppCompatActivity implements BottomNavigationB
 
     }
 
-//添加按钮图标
+
+
+    //添加按钮图标
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar2, menu);
         return true;
     }
 
-//    public Toolbar initToolbar(int id, int titleId, int titleString) {
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
-////      toolbar.setTitle("");
-//        TextView textView = (TextView) findViewById(R.id.toolbar_title2);
-//        textView.setText(titleString);
-//        setSupportActionBar(toolbar);
-//        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//            actionBar.setDisplayShowTitleEnabled(false);
-//        }
-//        return toolbar;
-//    }
-//切换Fragment
-private void bindViews() {
-    rg_tab_bar = (RadioGroup) findViewById(R.id.rg_tab_bar);
-    rb_channel = (RadioButton) findViewById(R.id.rb_channel);
-    rb_message = (RadioButton) findViewById(R.id.rb_message);
-    rg_tab_bar.setOnCheckedChangeListener(this);
-
-    vpager = (ViewPager) findViewById(R.id.vpager);
-    vpager.setAdapter(mAdapter);
-    vpager.setCurrentItem(0);
-    vpager.addOnPageChangeListener(this);
-}
-
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.rb_channel:
-                vpager.setCurrentItem(PAGE_ONE);
-                break;
-            case R.id.rb_message:
-                vpager.setCurrentItem(PAGE_TWO);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.fabu_add:
+                Intent intent = new Intent(this, Fabu_AddItemActivity.class);
+                this.startActivity(intent);
                 break;
         }
+        return super.onOptionsItemSelected(item);
     }
-
-
-    //重写ViewPager页面切换的处理方法
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        //state的状态有三个，0表示什么都没做，1正在滑动，2滑动完毕
-        if (state == 2) {
-            switch (vpager.getCurrentItem()) {
-                case PAGE_ONE:
-                    rb_channel.setChecked(true);
-                    break;
-                case PAGE_TWO:
-                    rb_message.setChecked(true);
-                    break;
-
-            }
-        }
-    }
-
 }
+
+
+

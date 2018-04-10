@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/SmartRecom/ThreeRecom/app/libs/fastjson-1.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/SmartRecom/ThreeRecom/app/libs/commons-httpclient-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/SmartRecom/ThreeRecom/app/libs/fastjson-1.2.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/SmartRecom/ThreeRecom/app/libs/log4j-1.2.17.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

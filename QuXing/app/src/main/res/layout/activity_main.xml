@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.quxing.quxing.MainActivity">
+    tools:context="com.example.quxing.quxing.Main.MainActivity">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,41 +15,196 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
+            android:layout_height="48dp"
             android:background="?attr/colorPrimary"
             android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize"
             android:theme="@style/ToolbarTheme"
             app:popupTheme="@style/Theme.AppCompat.Light">
 
-        <TextView
-            android:id="@+id/toolbar_title1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:text="推荐"/>
+            <TextView
+                android:id="@+id/toolbar_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:text="推荐"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.Toolbar>
 
-</FrameLayout>
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Hello World!"/>-->
+    </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/layFrame"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_gravity="bottom"
+            android:background="#33000000"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/tv_pager_title"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_weight="8"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:text="很长的标题。。。。。你懂我意思吧"
+                android:textColor="@color/white" />
+            <!--用来动态添加轮播小点-->
+            <LinearLayout
+                android:id="@+id/lineLayout_dot"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:gravity="center|right"
+                android:orientation="horizontal"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/main_new"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/collection"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/ic_main_new" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/collection"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="最新"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:id="@+id/main_hot"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/evaluate"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/ic_main_hot" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/collection"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="热门"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:id="@+id/main_city"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/follow"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/ic_main_city" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/collection"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="同城"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
+    <!--<FrameLayout-->
+    <!--android:id="@+id/layFrame"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1" />-->
+
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom" />
+
 
 </LinearLayout>

@@ -9,21 +9,21 @@
     </style>
 
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="android:textColor">@android:color/black</item>-->
-        <!--<item name="mainBackground">@android:color/white</item>-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--<item name="android:textColor">@android:color/black</item>-->
+    <!--<item name="mainBackground">@android:color/white</item>-->
     <!--</style>-->
 
     <!--<style name="NightAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/nightColorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/nightColorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/nightColorAccent</item>-->
-        <!--<item name="android:textColor">@android:color/white</item>-->
-        <!--<item name="mainBackground">@color/nightColorPrimaryDark</item>-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/nightColorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/nightColorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/nightColorAccent</item>-->
+    <!--<item name="android:textColor">@android:color/white</item>-->
+    <!--<item name="mainBackground">@color/nightColorPrimaryDark</item>-->
     <!--</style>-->
 
     <style name="AppTheme.NoActionBar">

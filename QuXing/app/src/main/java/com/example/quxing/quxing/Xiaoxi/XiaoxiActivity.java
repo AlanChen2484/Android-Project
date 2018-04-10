@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.quxing.quxing.Fabu.FabuActivity;
-import com.example.quxing.quxing.MainActivity;
+import com.example.quxing.quxing.Main.MainActivity;
 import com.example.quxing.quxing.R;
 import com.example.quxing.quxing.Wode.WodeActivity;
 
@@ -65,6 +65,8 @@ public class XiaoxiActivity extends AppCompatActivity implements BottomNavigatio
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
+
+
     }
 
 
