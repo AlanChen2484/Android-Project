@@ -3,7 +3,17 @@
     <string-array name="sex">
         <item>   男   </item>
         <item>   女   </item>
-        <item> 不知道 </item>
         <item>  保密  </item>
     </string-array>
+
+    <string-array name="label">
+        <item>  教育  </item>
+        <item>  文艺  </item>
+        <item>  户外  </item>
+        <item>  旅行  </item>
+        <item>  校园  </item>
+        <item>  交友  </item>
+        <item>  游戏  </item>
+    </string-array>
+
 </resources>

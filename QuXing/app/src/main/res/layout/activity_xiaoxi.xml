@@ -36,40 +36,17 @@
 
     </FrameLayout>
 
-
-    <RadioGroup
-        android:id="@+id/rg_tab_bar"
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rb_channel"
-            style="@style/tab_menu_item"
-            android:text="1" />
-
-        <RadioButton
-            android:id="@+id/rb_message"
-            style="@style/tab_menu_item"
-            android:text="2" />
-
-    </RadioGroup>
-
-    <View
-        android:id="@+id/div_tab_bar"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/white" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpager"
+    <ListView
+        android:id="@+id/listview_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_above="@+id/bottom_navigation_bar"
-        />
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:id="@+id/layFrame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
@@ -77,10 +54,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom" />
 
-    <!--<FrameLayout-->
-    <!--android:id="@+id/layFrame"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1" />-->
 
 </LinearLayout>

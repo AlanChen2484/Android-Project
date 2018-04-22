@@ -37,10 +37,11 @@
     </FrameLayout>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fl1"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/fl1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="一个很棒的活动一个很棒的活动"
+                    android:text="让我们一起去看星空吧"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -76,7 +77,7 @@
                     android:layout_alignStart="@+id/item_name"
                     android:layout_below="@+id/item_name"
                     android:layout_marginTop="4dp"
-                    android:text="888"
+                    android:text="63"
                     android:textColor="@color/blue" />
 
                 <TextView
@@ -97,7 +98,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@+id/item_collectiontext"
-                    android:text="666"
+                    android:text="17"
                     android:textColor="@color/blue" />
 
                 <TextView
@@ -110,6 +111,21 @@
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@+id/item_join_number"
                     android:text="参与" />
+
+                <TextView
+                    android:id="@+id/item_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/item_jointext"
+                    android:layout_alignBottom="@+id/item_jointext"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="户外"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
 
                 <View
                     android:layout_width="match_parent"
@@ -158,21 +174,50 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="浙江省杭州市滨江区"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/item_img_address"
-                    android:layout_marginStart="8dp" />
+                    android:text="浙江省杭州市天文馆" />
 
                 <ImageView
                     android:id="@+id/item_img_right"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@mipmap/ic_main_right"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignTop="@+id/item_img_address"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_main_right" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/item_jointext"
+                android:background="@color/lightgrey" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/item_phone"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="8dp"
+                    android:src="@mipmap/phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/item_phone"
+                    android:text="15867980899" />
 
             </RelativeLayout>
 
@@ -206,23 +251,39 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dp"
                     android:text="199"
-                    android:textColor="@color/blue"/>
+                    android:textColor="@color/blue" />
             </LinearLayout>
 
-            <ImageView
+            <!--<ImageView-->
 
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/ic_wode_personalbackground" />
-            <ImageView
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="180dp"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:scaleType="fitXY"-->
+            <!--app:srcCompat="@drawable/ic_wode_personalbackground" />-->
+            <!--<ImageView-->
 
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="180dp"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:scaleType="fitXY"-->
+            <!--app:srcCompat="@drawable/ic_wode_personalbackground" />-->
+
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/ic_wode_personalbackground" />
+                android:layout_height="1dp"
+                android:layout_below="@+id/item_jointext"
+                android:background="@color/lightgrey" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:text="活动详情"
+                android:textSize="24sp" />
 
         </LinearLayout>
     </ScrollView>
@@ -294,7 +355,6 @@
 
         </RelativeLayout>
 
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -303,7 +363,9 @@
             android:focusable="false"
             android:text="立即报名"
             android:textColor="@color/white" />
+
     </LinearLayout>
+
 
 </RelativeLayout>
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.example.quxing.quxing.Fabu.Fabu_AddItemActivity">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <FrameLayout
+        android:id="@+id/f12"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_fabu_item"
@@ -36,89 +36,343 @@
 
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/item_image"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_margin="8dp"
-        android:background="@color/grey"
-        app:srcCompat="@mipmap/ic_fabu_addimg" />
-
-    <Button
-        android:id="@+id/takephoto_imgbutton"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/shape"
-        android:text="拍摄活动图片"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/f12"
+        android:layout_marginTop="8dp">
 
-    <Button
-        android:id="@+id/add_imgbutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/shape"
-        android:text="添加活动图片"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/image_address"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:src="@mipmap/ic_main_address" />
-
-        <EditText
-            android:id="@+id/editText_address"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/image_address"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="24dp"
-            android:layout_toEndOf="@+id/image_address"
-            android:ems="20"
-            android:hint="     请填写活动的地址"
-            android:inputType="textPostalAddress" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/image_time"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:src="@mipmap/ic_main_time" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText_date"
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/grey"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/ic_fabu_addimg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/takephoto_imgbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:text="拍摄活动图片"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/add_imgbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape"
+                    android:text="添加活动图片"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_itemmane"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@mipmap/ic_fabu_item" />
+
+                <EditText
+                    android:id="@+id/editText_itemmane"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/image_itemmane"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_toEndOf="@+id/image_itemmane"
+                    android:ems="20"
+                    android:hint="请填写活动名称" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_host"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@mipmap/ic_fabu_host" />
+
+                <EditText
+                    android:id="@+id/editText_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/image_host"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_toEndOf="@+id/image_host"
+                    android:ems="20"
+                    android:hint="请填写活动的举办方名称" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_address"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@mipmap/ic_main_address" />
+
+                <EditText
+                    android:id="@+id/editText_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/image_address"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_toEndOf="@+id/image_address"
+                    android:ems="20"
+                    android:hint="请填写活动的地址"
+                    android:inputType="textPostalAddress" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_phone"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@mipmap/phone" />
+
+                <EditText
+                    android:id="@+id/editText_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/image_phone"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_toEndOf="@+id/image_phone"
+                    android:ems="20"
+                    android:hint="请填写主办方的联系方式"
+                    android:inputType="phone" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/l1_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/imageBtn_schedule"
+                        android:layout_width="36dp"
+                        android:layout_height="38dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/ic_fabu_date" />
+
+                    <TextView
+                        android:id="@+id/textView_schedule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="8"
+                        android:paddingTop="12dp"
+                        android:text="2018-01-01"
+                        android:textColor="@color/blue"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/l1_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/imageBtn_time"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/ic_main_time" />
+
+                    <TextView
+                        android:id="@+id/textView_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="8"
+                        android:paddingTop="12dp"
+                        android:text="00:00"
+                        android:textColor="@color/blue"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:paddingTop="8dp"
+                    android:text="活动标签"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sex"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:entries="@array/label"
+                    android:paddingRight="0dp" />
+
+                <TextView
+                    android:id="@+id/money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:paddingTop="8dp"
+                    android:text="费用￥"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/editText_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:ems="10"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_details"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@mipmap/details" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/editText_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/image_details"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_toEndOf="@+id/image_details"
+                    android:ems="100"
+                    android:hint="     请填写活动的相关详情" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button"
             android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:focusable="false"
+            android:text="立即发布"
+            android:textColor="@color/white" />
+
+        <View
+            android:layout_width="1dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/image_time"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="24dp"
-            android:layout_toEndOf="@+id/image_time"
-            android:ems="20"
-            android:hint="     请填写活动的日期"
-            android:inputType="date" />
+            android:background="@color/lightgrey" />
 
-    </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:focusable="false"
+            android:text="点击保存"
+            android:textColor="@color/black" />
 
+    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private boolean isStop = false;//线程是否停止
     private static int PAGER_TIOME = 5000;//间隔时间
 
-    // 在values文件假下创建了pager_image_ids.xml文件，并定义了4张轮播图对应的id，用于点击事件
+    // 在values文件夹下创建了pager_image_ids.xml文件，并定义了4张轮播图对应的id，用于点击事件
     private int[] imgae_ids = new int[]{R.id.pager_image1, R.id.pager_image2,
             R.id.pager_image3, R.id.pager_image4};
 
@@ -68,13 +69,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        //RecycleView
+        //ListView
         initItems();//初始化滚动条数据
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerview_main);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        ItemAdapter adapter = new ItemAdapter(itemList);
-        recyclerView.setAdapter(adapter);
+
+        ItemAdapter adapter = new ItemAdapter(MainActivity.this, R.layout.main_item, itemList);
+        ListView listView = (ListView) findViewById(R.id.listview_main);
+        listView.setAdapter(adapter);
 
 //BottomNavigationBar-底部导航栏
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
@@ -155,17 +155,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 //        return toolbar;
 //    }
 
-    private void initItems(){
-        for (int i = 0;i < 2; i++){
-            Item Act1 = new Item("一个很长的标题一个很长的标题。",R.drawable.ic_wode_personalimage);
+    private void initItems() {
+        for (int i = 0; i < 2; i++) {
+            Item Act1 = new Item("让我们一起去看星空吧", R.drawable.ic_wode_personalbackground);
             itemList.add(Act1);
-            Item Act2 = new Item("Act2",R.drawable.ic_wode_personalbackground);
+            Item Act2 = new Item("小游戏爱好者的聚会", R.drawable.ic_wode_personalimage);
             itemList.add(Act2);
-            Item Act3 = new Item("Act3",R.mipmap.quxing);
+            Item Act3 = new Item("小宠物们的聚会", R.drawable.ic_main_dog);
             itemList.add(Act3);
-            Item Act4 = new Item("Act4",R.mipmap.quxing);
+            Item Act4 = new Item("古风漫谈", R.drawable.ic_main_coser);
             itemList.add(Act4);
-            Item Act5 = new Item("Act5",R.mipmap.quxing);
+            Item Act5 = new Item("徒步旅行的点滴", R.drawable.ic_main_travel);
             itemList.add(Act5);
         }
     }
@@ -173,15 +173,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_city:
-                Intent intent_1 = new Intent(this,Main_CityActivity.class);
+                Intent intent_1 = new Intent(this, Main_CityActivity.class);
                 startActivity(intent_1);
                 break;
             case R.id.main_hot:
-                Intent intent_2 = new Intent(this,Main_HotActivity.class);
+                Intent intent_2 = new Intent(this, Main_HotActivity.class);
                 startActivity(intent_2);
                 break;
             case R.id.main_new:
-                Intent intent_3 = new Intent(this,Main_NewActivity.class);
+                Intent intent_3 = new Intent(this, Main_NewActivity.class);
                 startActivity(intent_3);
                 break;
             default:
@@ -205,9 +205,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
      */
     public void initData() {
         //初始化标题列表和图片
-        mImageTitles = new String[]{"这是一个好看的标题1","这是一个优美的标题2","这是一个快乐的标题3","这是一个开心的标题4"};
-        int[] imageRess = new int[]{R.drawable.ic_wode_personalbackground,R.drawable.ic_wode_personalimage,
-                R.drawable.ic_wode_personalbackground,R.drawable.ic_wode_personalimage};
+        mImageTitles = new String[]{"让我们一起去看星空吧", "小游戏爱好者的聚会", "小宠物们的聚会", "古风漫谈"};
+        int[] imageRess = new int[]{R.drawable.ic_wode_personalbackground, R.drawable.ic_wode_personalimage,
+                R.drawable.ic_main_dog, R.drawable.ic_main_coser};
 
         //添加图片到图片列表里
         mImageList = new ArrayList<>();
@@ -222,19 +222,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
         //添加轮播点
         LinearLayout linearLayoutDots = (LinearLayout) findViewById(R.id.lineLayout_dot);
-        mDots = addDots(linearLayoutDots,fromResToDrawable(this,R.drawable.ic_dot_normal),mImageList.size());//其中fromResToDrawable()方法是我自定义的，目的是将资源文件转成Drawable
+        mDots = addDots(linearLayoutDots, fromResToDrawable(this, R.drawable.ic_dot_normal), mImageList.size());//其中fromResToDrawable()方法是我自定义的，目的是将资源文件转成Drawable
 
 
     }
 
     //图片点击事件
-    private class pagerImageOnClick implements View.OnClickListener{
+    private class pagerImageOnClick implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.pager_image1:
-                    Intent intent_1 =new Intent(MainActivity.this,Item_DetailsActivity.class);
+                    Intent intent_1 = new Intent(MainActivity.this, Item_DetailsActivity.class);
                     startActivity(intent_1);
 
                     Toast.makeText(MainActivity.this, "图片1被点击", Toast.LENGTH_SHORT).show();
@@ -251,24 +251,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
             }
         }
     }
+
     /**
-     *  第三步、给PagerViw设置适配器，并实现自动轮播功能
+     * 第三步、给PagerViw设置适配器，并实现自动轮播功能
      */
-    public void initView(){
+    public void initView() {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mImageList, mViewPager);
         mViewPager.setAdapter(viewPagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
-
             @Override
             public void onPageSelected(int position) {
-                if(mImageList.size()==0){
+                if (mImageList.size() == 0) {
                     return;
                 }
-                //伪无限循环，滑到最后一张图片又从新进入第一张图片
+                // 伪无限循环，滑到最后一张图片又从新进入第一张图片
                 int newPosition = position % (mImageList.size());
                 // 把当前选中的点给切换了, 还有描述信息也切换
                 mTvPagerTitle.setText(mImageTitles[newPosition]);//图片下面设置显示文本
@@ -276,11 +275,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 LinearLayout.LayoutParams newDotParams = (LinearLayout.LayoutParams) mDots.get(newPosition).getLayoutParams();
                 newDotParams.width = 24;
                 newDotParams.height = 24;
-
                 LinearLayout.LayoutParams oldDotParams = (LinearLayout.LayoutParams) mDots.get(previousPosition).getLayoutParams();
                 oldDotParams.width = 16;
                 oldDotParams.height = 16;
-
                 // 把当前的索引赋值给前一个索引变量, 方便下一次再切换.
                 previousPosition = newPosition;
 
@@ -300,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private void setFirstLocation() {
         mTvPagerTitle.setText(mImageTitles[previousPosition]);
         // 把ViewPager设置为默认选中Integer.MAX_VALUE / t2，从十几亿次开始轮播图片，达到无限循环目的;
-        int m = (Integer.MAX_VALUE / 2) % (mImageList.size()+1);
+        int m = (Integer.MAX_VALUE / 2) % (mImageList.size() + 1);
         int currentPosition = Integer.MAX_VALUE / 2 - m;
         mViewPager.setCurrentItem(currentPosition);
     }
@@ -313,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (!isStop){
+                while (!isStop) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -328,6 +325,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     /**
      * 资源图片转Drawable
+     *
      * @param context
      * @param resId
      * @return
@@ -339,8 +337,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     /**
      * 动态添加一个点
+     *
      * @param linearLayout 添加到LinearLayout布局
-     * @param backgount 设置
+     * @param backgount    设置
      * @return
      */
     public int addDot(final LinearLayout linearLayout, Drawable backgount) {
@@ -349,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         dotParams.width = 16;
         dotParams.height = 16;
-        dotParams.setMargins(4,0,4,0);
+        dotParams.setMargins(4, 0, 4, 0);
         dot.setLayoutParams(dotParams);
         dot.setBackground(backgount);
         dot.setId(View.generateViewId());
@@ -359,15 +358,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     /**
      * 添加多个轮播小点到横向线性布局
+     *
      * @param linearLayout
      * @param backgount
      * @param number
      * @return
      */
-    public List<View> addDots(final LinearLayout linearLayout, Drawable backgount, int number){
+    public List<View> addDots(final LinearLayout linearLayout, Drawable backgount, int number) {
         List<View> dots = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            int dotId = addDot(linearLayout,backgount);
+            int dotId = addDot(linearLayout, backgount);
             dots.add(findViewById(dotId));
         }
         return dots;

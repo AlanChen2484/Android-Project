@@ -116,6 +116,7 @@ public class EditScheduleActivity extends Activity implements View.OnClickListen
             }
         });
     }
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.take_photo:

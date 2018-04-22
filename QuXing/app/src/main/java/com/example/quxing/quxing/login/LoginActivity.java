@@ -19,7 +19,10 @@ import butterknife.OnClick;
 import com.example.quxing.quxing.DataBaseHelper.DataBaseHelper;
 import com.example.quxing.quxing.R;
 import com.example.quxing.quxing.Main.MainActivity;
+import com.example.quxing.quxing.Tools.HttpHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,8 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //        ButterKnife.inject(this);
         ButterKnife.bind(this);
-
-        dbHelper = new DataBaseHelper(this, "QuXingdb.db", null, 1);
+//        dbHelper = new DataBaseHelper(this, "QuXingdb.db", null, 1);
 
         etUsername = (EditText) findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
@@ -51,31 +53,31 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //点击登录按钮
-    public boolean loginClicked() {
-        etUsername = (EditText) findViewById(R.id.et_username);
-        etPassword = (EditText) findViewById(R.id.et_password);
-        String userName = etUsername.getText().toString();
-        String passWord = etPassword.getText().toString();
-        if (login(userName, passWord)) {
-            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-            return true;
-        } else {
-            Toast.makeText(LoginActivity.this, "用户名密码不正确", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    }
+//    //点击登录按钮
+//    public boolean loginClicked() {
+//        etUsername = (EditText) findViewById(R.id.et_username);
+//        etPassword = (EditText) findViewById(R.id.et_password);
+//        String userName = etUsername.getText().toString();
+//        String passWord = etPassword.getText().toString();
+//        if (login(userName, passWord)) {
+//            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//            return true;
+//        } else {
+//            Toast.makeText(LoginActivity.this, "用户名密码不正确", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//    }
 
-    public boolean login(String username, String password) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String sql = "select * from Login where Login_UserName=? and Login_Password=?";
-        Cursor cursor = db.rawQuery(sql, new String[]{username, password});
-        if (cursor.moveToFirst()) {
-            cursor.close();
-            return true;
-        }
-        return false;
-    }
+//    public boolean login(String username, String password) {
+//        SQLiteDatabase db = dbHelper.getWritableDatabase();
+//        String sql = "select * from Login where Login_UserName=? and Login_Password=?";
+//        Cursor cursor = db.rawQuery(sql, new String[]{username, password});
+//        if (cursor.moveToFirst()) {
+//            cursor.close();
+//            return true;
+//        }
+//        return false;
+//    }
 
     @OnClick({R.id.bt_go, R.id.fab})
     public void onClick(View view) {
@@ -90,18 +92,55 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.bt_go:
 //                if (loginClicked()) {
-                Intent i2 = new Intent(this, MainActivity.class);
-                startActivity(i2);
-                finish();
+
+//                //获取用户名密码
+//                final String username = etUsername.getText().toString().trim();
+//                final String pwd = etPassword.getText().toString().trim();
+//                new Thread() {
+//                    public void run() {
+//                        JSONObject jsonObject = new JSONObject();
+//                        try {
+//                            jsonObject.put("username", username);
+//                            jsonObject.put("password", pwd);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        String s = HttpHandler.executeHttpPost("http://192.168.43.34:8081/login", jsonObject.toString());
+//                        if ("登录成功".equals(s)) {
+                            Intent intent_1 = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent_1);
+//                        } else {
+//                            showToast(s);
+//                        }
+//                    }
+//                }.start();
+//                break;
+//
+//
+//            default:
+//                break;
+      }
+    }
+
+    //                Intent i2 = new Intent(this, MainActivity.class);
+//                startActivity(i2);
+//                finish();
 //                }
-                break;
+//                break;
 //            case R.id.bt_trd:
 //                Intent i3 = new Intent(this,PersonalInformationActivity.class);
 //                startActivity(i3);
 //                finish();
 //                break;
-        }
+
+    private void showToast(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-
 }
+

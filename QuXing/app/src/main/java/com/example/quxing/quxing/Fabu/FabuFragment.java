@@ -31,7 +31,7 @@ public class FabuFragment extends Fragment {
     private static final String ARG_POSITION = "pos";
     private ListView listView;
     private ListView lv;
-    //    private List<MoneyModel> data;
+//    private List<MoneyModel> data;
 //    private DataBaseHelper dbHelper;
     private SQLiteDatabase db;
     private RecyclerView mRvTextList;

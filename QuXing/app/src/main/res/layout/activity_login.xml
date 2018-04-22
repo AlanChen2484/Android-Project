@@ -106,14 +106,14 @@
                     android:textColor="@color/blue"></Button>
 
                 <!--<Button-->
-                    <!--android:id="@+id/bt_trd"-->
-                    <!--android:layout_width="92dp"-->
-                    <!--android:layout_height="36dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_toRightOf="@id/bt_go"-->
-                    <!--android:background="#ffffff"-->
-                    <!--android:text="@string/trd"-->
-                    <!--android:textColor="@color/blue"></Button>-->
+                <!--android:id="@+id/bt_trd"-->
+                <!--android:layout_width="92dp"-->
+                <!--android:layout_height="36dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_toRightOf="@id/bt_go"-->
+                <!--android:background="#ffffff"-->
+                <!--android:text="@string/trd"-->
+                <!--android:textColor="@color/blue"></Button>-->
             </RelativeLayout>
 
             <TextView
@@ -135,9 +135,9 @@
         android:layout_alignTop="@id/cv"
         android:layout_marginEnd="-25dp"
         android:layout_marginTop="25dp"
+        android:background="@color/blue"
         android:src="@mipmap/ic_action_plus"
         android:transitionName="loginFab"
-        android:background="@color/blue"
         app:elevation="6dp"
         app:fabSize="normal" />
 

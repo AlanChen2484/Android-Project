@@ -25,24 +25,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "Login_UserName text UNIQUE,"
             + "Login_Password text )";
 
-//    public static final String CREATE_Schedule = "create table Schedule("
-//            + "id integer primary key autoincrement,"
-//            + "Schedule_details text ,"         //日程详情
-//            + "Schedule_begintime text ,"       //开始时间
-//            + "Schedule_beginschedule text,"     //开始日期
-//            + "Schedule_endtime text,"
-//            + "Schedule_priority integer , "    //优先级
-//            + "Schedule_classes integer ,"      //类别
-//            + "Schedule_remark text,"                 //备注
-//            + "Schedule_state integer"
-//            + "Schedule_picture text)";
-//
-//    public static final String CREATE_Income = "create table Income("
-//            + "id integer primary key autoincrement,"
-//            + "Income_income real ,"
-//            + "Income_expense real ,"
-//            + "Income_classes text ,"
-//            + "Income_time text )";
+    public static final String CREATE_Schedule = "create table Schedule("
+            + "id integer primary key autoincrement,"
+            + "Schedule_details text ,"         //日程详情
+            + "Schedule_begintime text ,"       //开始时间
+            + "Schedule_beginschedule text,"     //开始日期
+            + "Schedule_endtime text,"
+            + "Schedule_priority integer , "    //优先级
+            + "Schedule_classes integer ,"      //类别
+            + "Schedule_remark text,"                 //备注
+            + "Schedule_state integer"
+            + "Schedule_picture text)";
+
+    public static final String CREATE_Income = "create table Income("
+            + "id integer primary key autoincrement,"
+            + "Income_income real ,"
+            + "Income_expense real ,"
+            + "Income_classes text ,"
+            + "Income_time text )";
 //
 //    public static final String CREATE_SortIncome = "create table SortIncome("
 //            + "id integer primary key autoincrement,"
