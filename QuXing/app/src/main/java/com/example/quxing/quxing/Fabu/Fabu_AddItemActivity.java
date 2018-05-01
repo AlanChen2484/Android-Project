@@ -21,6 +21,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,11 +33,24 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.quxing.quxing.Auxiliary.Item_DetailsActivity;
+import com.example.quxing.quxing.Main.MainActivity;
+import com.example.quxing.quxing.Main.Main_CityActivity;
 import com.example.quxing.quxing.R;
+import com.example.quxing.quxing.Tools.HttpHandler;
+import com.example.quxing.quxing.Wode.Wode_AboutActivity;
+import com.example.quxing.quxing.login.LoginActivity;
+import com.example.quxing.quxing.login.RegisterActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.jar.Manifest;
 
 public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnClickListener {
@@ -60,6 +74,12 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
     private TextView tv2;
     private LinearLayout l1;
     private LinearLayout l2;
+    private EditText itemname1;
+    private EditText hostname1;
+    private EditText address1;
+    private EditText callnumber1;
+    private EditText details1;
+    private EditText money1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +94,20 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
         takePhoto = (Button) findViewById(R.id.takephoto_imgbutton);
         getPhoto = (Button) findViewById(R.id.add_imgbutton);
         picture = (ImageView) findViewById(R.id.item_image);
-
         takePhoto.setOnClickListener(this);
         getPhoto.setOnClickListener(this);
+
+        Button address = (Button) findViewById(R.id.button_address);
+        Button put = (Button) findViewById(R.id.button_put);
+
+        address.setOnClickListener(this);
+        put.setOnClickListener(this);
+        itemname1 = (EditText) findViewById(R.id.editText_itemname);
+        hostname1 = (EditText) findViewById(R.id.editText_host);
+        address1 = (EditText) findViewById(R.id.editText_address);
+        callnumber1 = (EditText) findViewById(R.id.editText_phone);
+        details1 = (EditText) findViewById(R.id.editText_details);
+        money1 = (EditText) findViewById(R.id.editText_money);
 
 
         /**
@@ -93,7 +124,7 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         tv.setText(String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth));
                     }
-                }, 2017, 6, 9).show();
+                }, 2018, 5, 1).show();
             }
         });
 
@@ -113,23 +144,172 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                     }
                     //0,0指的是时间，true表示是否为24小时，true为24小时制
                 }, 0, 0, true).show();
+
             }
         });
     }
 
+    //获取当前时间
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date curDate = new Date(System.currentTimeMillis());
+    String str = formatter.format(curDate);
+
+//    Calendar calendar = Calendar.getInstance();
+//    //获取系统的日期
+//    //年
+//    int year = calendar.get(Calendar.YEAR);
+//    //月
+//    int month = calendar.get(Calendar.MONTH) + 1;
+//    //日
+//    int day = calendar.get(Calendar.DAY_OF_MONTH);
+//    //小时
+//    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//    //分钟
+//    int minute = calendar.get(Calendar.MINUTE);
+//    //秒
+//    int second = calendar.get(Calendar.SECOND);
+//
+//    String str = (year + "-" + month + day + hour + minute + second);
+
 
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.button_put:
+                if (checkEdit()) {
+                    t.start();
+//                    new Thread() {
+//                        public void run() {
+//                            //定义传入字符串数据
+//                            String itemname = itemname1.getText().toString().trim();
+//                            String hostname = hostname1.getText().toString().trim();
+//                            String address = address1.getText().toString().trim();
+//                            String callnumber = callnumber1.getText().toString().trim();
+//                            String details = details1.getText().toString().trim();
+//                            int money = Integer.parseInt(money1.getText().toString());
+//                            String itemtime = (tv.getText().toString() + tv2.getText().toString()).trim();
+//                            String releasetime = str.toString().trim();
+//                            JSONObject jsonObject = new JSONObject();//构建即直接实例化一个JSONObject对象
+//                            try {
+//                                //调用其put()方法,将数据写入
+//                                jsonObject.put("itemname", itemname);
+//                                jsonObject.put("hostname", hostname);
+//                                jsonObject.put("address", address);
+//                                jsonObject.put("callnumber", callnumber);
+//                                jsonObject.put("details", details);
+//                                jsonObject.put("money", money);
+//                                jsonObject.put("itemtime", itemtime);
+//                                jsonObject.put("releasetime", releasetime);
+//
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            String s = HttpHandler.executeHttpPost("http://192.168.43.34:8081/item", jsonObject.toString());
+//
+//                            if ("success".equals(s)) {
+//                                showToast("项目已存储");
+//                                Intent intent_set = new Intent(Fabu_AddItemActivity.this, FabuActivity.class);
+//                                finish();
+//                                startActivity(intent_set);
+//                            } else if ("fail".equals(s)) {
+//                                showToast("项目已存在");
+//                            }
+//
+////                            post();
+//                        }
+//                    }.start();
+                }
+                break;
             case R.id.takephoto_imgbutton:
                 takePhoto();
                 break;
             case R.id.add_imgbutton:
                 getPhoto();
                 break;
+            case R.id.button_address:
+                Intent intent_1 = new Intent(this, BaiduMapActivity.class);
+                startActivity(intent_1);
+                break;
             default:
                 break;
         }
 
+    }
+
+    Thread t = new Thread() {
+        public void run() {
+            //定义传入字符串数据
+            String itemname = itemname1.getText().toString().trim();
+            String hostname = hostname1.getText().toString().trim();
+            String address = address1.getText().toString().trim();
+            String callnumber = callnumber1.getText().toString().trim();
+            String details = details1.getText().toString().trim();
+            int money = Integer.parseInt(money1.getText().toString());
+            String itemtime = (tv.getText().toString() + tv2.getText().toString()).trim();
+            String releasetime = str.toString().trim();
+            JSONObject jsonObject = new JSONObject();//构建即直接实例化一个JSONObject对象
+            try {
+                //调用其put()方法,将数据写入
+                jsonObject.put("itemname", itemname);
+                jsonObject.put("hostname", hostname);
+                jsonObject.put("address", address);
+                jsonObject.put("callnumber", callnumber);
+                jsonObject.put("details", details);
+                jsonObject.put("money", money);
+                jsonObject.put("itemtime", itemtime);
+                jsonObject.put("releasetime", releasetime);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String s = HttpHandler.executeHttpPost("http://192.168.43.34:8081/item", jsonObject.toString());
+
+            if ("success".equals(s)) {
+                showToast("项目已存储");
+                Intent intent_set = new Intent(Fabu_AddItemActivity.this, FabuActivity.class);
+                finish();
+                startActivity(intent_set);
+            } else if ("fail".equals(s)) {
+                showToast("项目已存在");
+            }
+        }
+    };
+//        t.start();
+
+    //判定条件
+    public boolean checkEdit() {
+
+        if (itemname1.getText().toString().equals("")) {
+            Toast.makeText(Fabu_AddItemActivity.this, "项目名不能为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+//        if (!userpwd2.getText().toString().equals(userpwd1.getText().toString())) {
+//            Toast.makeText(RegisterActivity.this, "两次输入的密码不同", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+        return true;
+    }
+
+    private void showToast(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(Fabu_AddItemActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent_set = new Intent(Fabu_AddItemActivity.this, FabuActivity.class);
+                finish();
+                startActivity(intent_set);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -214,160 +394,10 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                     picture.setImageBitmap(cropbitmap);
                 }
                 break;
+
             default:
                 break;
         }
     }
 }
 
-//        picture = (ImageView) findViewById(R.id.item_image);
-//        Button takePhoto = (Button) findViewById(R.id.takephoto_imgbutton);
-//        Button chooseFromAlbum = (Button) findViewById(R.id.add_imgbutton);
-//
-//        takePhoto.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                File outputImage = new File(getExternalCacheDir(), "output_image.jpg");
-//                try {
-//                    if (outputImage.exists()) {
-//                        outputImage.delete();
-//                    }
-//                    outputImage.createNewFile();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                if (Build.VERSION.SDK_INT >= 24) {
-//                    imageUri = FileProvider.getUriForFile(Fabu_AddItemActivity.this,
-//                            "com.example.quxing.quxing", outputImage);
-//                } else {
-//                    imageUri = Uri.fromFile(outputImage);
-//                }
-//                //启动相机程序
-//                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//                startActivityForResult(intent, TAKE_PHOTO);
-//            }
-//        });
-//
-//        chooseFromAlbum.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (ContextCompat.checkSelfPermission(Fabu_AddItemActivity.this,
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                    ActivityCompat.requestPermissions(Fabu_AddItemActivity.this, new
-//                            String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-//                } else {
-//                    openAlbum();
-//                }
-//            }
-//        });
-//    }
-//
-//
-//    private void openAlbum() {
-//        Intent intent = new Intent("android.intent.action.GET_CONTENT");
-//        intent.setType("image/*");
-//        startActivityForResult(intent, CHOOSE_PHOTO);//打开相册
-//    }
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                                           int[] grantResults) {
-//        switch (requestCode) {
-//            case TAKE_PHOTO:
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    openAlbum();
-//                } else {
-//                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            default:
-//        }
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        switch (requestCode) {
-//            case TAKE_PHOTO:
-//                if (resultCode == RESULT_OK) {
-//                    try {
-//                        //将拍摄的照片显示出来
-//                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().
-//                                openInputStream(imageUri));
-//                        picture.setImageResource(bitmap);
-//                    } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                break;
-//            case CHOOSE_PHOTO:
-//                if (resultCode == RESULT_OK) {
-//                    //判断手机系统版本号
-//                    if (Build.VERSION.SDK_INT >= 19) {
-//                        //4.4及以上系统使用此方法处理图片
-//                        handleImageOnKitKat(data);
-//                    } else {
-//                        //4.4及以下系统使用此方法处理图片
-//                        handleImageBeforeKitKat(data);
-//                    }
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//
-//    @TargetApi(19)
-//    private void handleImageOnKitKat(Intent data) {
-//        String imagePath = null;
-//        Uri uri = data.getData();
-//        if (DocumentsContract.isDocumentUri(this, uri)) {
-//            //如果是document类型的Uri，则通过document id 处理
-//            String docId = DocumentsContract.getDocumentId(uri);
-//            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-//                String id = docId.split(":")[1];//解析出数字格式id
-//                String selection = MediaStore.Images.Media._ID + "=" + id;
-//                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-//            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-//                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
-//                        Long.valueOf(docId));
-//                imagePath = getImagePath(contentUri, null);
-//            }
-//        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-//            //如果是content类型的Uri，则使用普遍方式处理
-//            imagePath = getImagePath(uri, null);
-//        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-//            //如果是file类型的Uri，则直接获取图片路径
-//            imagePath = uri.getPath();
-//        }
-//        displayImage(imagePath);//根据图片路径显示图片
-//    }
-//
-//    private void handleImageBeforeKitKat(Intent data) {
-//        Uri uri = data.getData();
-//        String imagePath = getImagePath(uri, null);
-//        displayImage(imagePath);
-//    }
-//
-//    private String getImagePath(Uri uri, String selection) {
-//        String path = null;
-//        //通过Uri和Selection来获取真实图片路径
-//        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
-//        if (cursor != null) {
-//            if (cursor.moveToFirst()) {
-//                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-//            }
-//            cursor.close();
-//        }
-//        return path;
-//    }
-//
-//    private void displayImage(String imagePath) {
-//        if (imagePath != null) {
-//            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-//            picture.setImageBitmap(bitmap);
-//        } else {
-//            Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//}

@@ -115,10 +115,9 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                }.start();
 //                break;
-//
-//
-//            default:
-//                break;
+
+            default:
+                break;
       }
     }
 
@@ -137,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,"登录失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

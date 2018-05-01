@@ -47,11 +47,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         cvAdd = (CardView) findViewById(R.id.cv_add);
         btregister = (Button) findViewById(R.id.bt_register);
 
-        username1=(EditText)findViewById(R.id.et_username_register);
+        username1 = (EditText) findViewById(R.id.et_username_register);
 
-        userpwd1=(EditText)findViewById(R.id.et_password_register);
+        userpwd1 = (EditText) findViewById(R.id.et_password_register);
 
-        userpwd2=(EditText)findViewById(R.id.et_repeat_password);
+        userpwd2 = (EditText) findViewById(R.id.et_repeat_password);
 
         ShowEnterAnimation();
 
@@ -90,8 +90,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             String s = HttpHandler.executeHttpPost("http://192.168.43.34:8081/register", jsonObject.toString());
 
                             if ("success".equals(s)) {
-                                Intent intent1 = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(intent1);
+                                animateRevealClose();
                             } else {
                                 showToast(s);
                             }
@@ -130,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(RegisterActivity.this, text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

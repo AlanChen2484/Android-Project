@@ -96,23 +96,23 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif"
-                android:text="性别"
-                android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:text="性别"
+                        android:textSize="18sp" />
 
-            <Spinner
-                android:id="@+id/sex"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="4dp"
-                android:entries="@array/sex"
-                android:paddingRight="0dp" />
+                    <Spinner
+                        android:id="@+id/sex"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="4dp"
+                        android:entries="@array/sex"
+                        android:paddingRight="0dp" />
 
                 </LinearLayout>
 
@@ -141,7 +141,7 @@
 
                 </LinearLayout>
 
-        </LinearLayout>
+            </LinearLayout>
             <!--//城市-->
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/city"
@@ -160,20 +160,18 @@
                 app:met_maxCharacters="30"
                 app:met_primaryColor="@color/blue" />
 
-            //个人主页
-
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/personHomepage"
                 android:layout_width="344dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="20dp"
-                android:hint="请在这里输入个人主页"
+                android:hint="请在这里输入个人备注"
                 android:maxLength="30"
                 android:textSize="16sp"
                 app:met_baseColor="@android:color/darker_gray"
                 app:met_floatingLabel="highlight"
-                app:met_floatingLabelText="个人主页："
+                app:met_floatingLabelText="个人备注："
                 app:met_floatingLabelTextColor="@color/blue"
                 app:met_floatingLabelTextSize="14sp"
                 app:met_maxCharacters="30"
