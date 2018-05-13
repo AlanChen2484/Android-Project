@@ -1,16 +1,16 @@
-package com.example.quxing.quxing.Main;
+package com.example.quxing.quxing.Xiaoxi;
 
 /**
- * Created by 陈若韬 on 2018/3/27.
+ * Created by 陈若韬 on 2018/4/17.
  */
 
-public class Item {
+public class Communication {
     private String name;
     private int imageId;
 
-    public Item(String name, int imageId) {
+    public Communication(String name) {
         this.name = name;
-        this.imageId = imageId;
+//        this.imageId = imageId;
     }
 
     public String getName() {
@@ -20,7 +20,4 @@ public class Item {
     public int getImageId() {
         return imageId;
     }
-
-
 }
-

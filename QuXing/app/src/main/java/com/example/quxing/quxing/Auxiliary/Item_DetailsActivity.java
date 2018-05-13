@@ -1,10 +1,8 @@
 package com.example.quxing.quxing.Auxiliary;
 
-
+import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,16 +19,20 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
 import com.baidu.mapapi.navi.BaiduMapNavigation;
 import com.baidu.mapapi.navi.NaviParaOption;
+import com.bumptech.glide.Glide;
 import com.example.quxing.quxing.Main.MainActivity;
 import com.example.quxing.quxing.R;
+import com.example.quxing.quxing.Tools.HttpHandler;
+import com.example.quxing.quxing.login.LoginActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.baidu.mapapi.BMapManager.getContext;
 
 
-public class Item_DetailsActivity extends AppCompatActivity {
+public class Item_DetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
 //    int []images = new int[]
 //            {
@@ -38,7 +40,15 @@ public class Item_DetailsActivity extends AppCompatActivity {
 //                    R.mipmap.ic_wode_collection1,
 //            };
 
-//    int currImg = 0;
+    //    int currImg = 0;
+    private Context context;
+    TextView address;
+    private static String address1 = null;
+    private TextView item_name, item_join, item_collection, item_time,
+            item_address, item_phone, item_details, item_money, item_label;
+    private String itemname;
+    private int itemid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +59,6 @@ public class Item_DetailsActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 //        ImageView pic = (ImageView)findViewById(R.id.item_collection);
 //        final ImageView image = new ImageView(this);
 //
@@ -60,14 +69,79 @@ public class Item_DetailsActivity extends AppCompatActivity {
 //                image.setImageResource(images[++currImg % images.length]);
 //            }
 //        });
+        address = (TextView) findViewById(R.id.item_address);
+        address.setOnClickListener(this);
+        Item_DetailsActivity.address1 = address.getText().toString();
 
+        item_name = (TextView) findViewById(R.id.item_name);
+        item_join = (TextView) findViewById(R.id.item_join_number);
+        item_collection = (TextView) findViewById(R.id.item_collection_number);
+        item_time = (TextView) findViewById(R.id.item_time);
+        item_address = (TextView) findViewById(R.id.item_address);
+        item_phone = (TextView) findViewById(R.id.phone);
+        item_money = (TextView) findViewById(R.id.money);
+        item_details = (TextView) findViewById(R.id.item_details);
+        item_label = (TextView) findViewById(R.id.item_label);
+//        imageView = (ImageView) findViewById(R.id.itemimage);
+
+        Intent intent = getIntent();
+        itemname = intent.getStringExtra("itemname");
+//        itemid = intent.getStringExtra("itemid");
+
+        new Thread() {
+            public void run() {
+                parseJOSNWithGSON();
+            }
+        }.start();
     }
 
+    private void parseJOSNWithGSON() {
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget/getname/" + itemname);
+        try {
+            JSONArray jsonArray = new JSONArray(jsondata);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                String itemname1 = object.getString("itemname");
+                String follow1 = object.getString("follownumber");
+                String enrolment1 = object.getString("enrolment");
+                String time1 = object.getString("itemtime");
+                String address1 = object.getString("address");
+                String phone1 = object.getString("callnumber");
+                String money1 = object.getString("money");
+                String details1 = object.getString("details");
+                String label = object.getString("itemlabel");
+                Integer itemid1 = object.getInt("itemid");
+
+//                SimpleDateFormat dateFormater_1 = new SimpleDateFormat("yyyy-MM-dd");
+//                Date date_1= new Date(object.getLong("starttime"));
+//                actdis_starttime.setText(dateFormater_1.format(date_1));
+//                SimpleDateFormat dateFormater_2 = new SimpleDateFormat("yyyy-MM-dd");
+//                Date date_2= new Date(object.getLong("starttime"));
+//                actdis_endtime.setText(dateFormater_2.format(date_2));
+                showUI(itemname1);
+                showUI1(follow1);
+                showUI2(enrolment1);
+                showUI3(time1);
+                showUI4(address1);
+                showUI5(phone1);
+                showUI6(money1);
+                showUI7(details1);
+                showUI8(sprinner(label));
+                showImg(itemid1);
+
+//                actdis_content.setText(content);
+//                actdis_sourcename.setText(source);
+//                actdis_address.setText(address);
+//                actdis_state.setText(state);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.collection:
-
                 Toast.makeText(Item_DetailsActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
 //                TextView run_action;
 //
@@ -81,15 +155,11 @@ public class Item_DetailsActivity extends AppCompatActivity {
 //                    isActive = true;
 //                    run_action.setText("已收藏");
 //                }
-//                break;
-            case R.id.talking:
-
+                break;
+            case R.id.rl_address:
 //                startNavi();
                 foundAddress();
-
-//                Intent intent_2 = new Intent(this,Main_HotActivity.class);
-//                startActivity(intent_2);
-//                break;
+                break;
 //            case R.id.main_new:
 //                Intent intent_3 = new Intent(this,Main_NewActivity.class);
 //                startActivity(intent_3);
@@ -101,10 +171,8 @@ public class Item_DetailsActivity extends AppCompatActivity {
 
     public void foundAddress() {
         Intent i1 = new Intent();
-// 百度地图地址解析
-
-        i1.setData(Uri.parse("baidumap://map/geocoder?src=openApiDemo&address=杭州科技馆"));
-
+        // 百度地图地址解析
+        i1.setData(Uri.parse("baidumap://map/geocoder?src=openApiDemo&address=" + item_address.getText()));
         startActivity(i1);
     }
 
@@ -138,7 +206,7 @@ public class Item_DetailsActivity extends AppCompatActivity {
 //    }
 
 
-//    //开启百度导航
+    //    //开启百度导航
 //    public void startNavi(){
 //        //百度地图,从起点是
 //        LatLng ll_location = new LatLng(10,10);
@@ -176,6 +244,27 @@ public class Item_DetailsActivity extends AppCompatActivity {
 //        return packageNames.contains(packageName);
 //    }
 
+    //取下拉框的活动标签
+    public String sprinner(final String text) {
+        if (text.equals("1"))
+            return "教育";
+        else if (text.equals("2")) {
+            return "文艺";
+        } else if (text.equals("3")) {
+            return "户外";
+        } else if (text.equals("4")) {
+            return "旅行";
+        } else if (text.equals("5")) {
+            return "校园";
+        } else if (text.equals("6")) {
+            return "交友";
+        } else if (text.equals("7")) {
+            return "游戏";
+        } else {
+            return "教育";
+        }
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -185,5 +274,100 @@ public class Item_DetailsActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showImg(final Integer text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ImageView imageView = (ImageView) findViewById(R.id.itemimage);
+                Glide.with(Item_DetailsActivity.this)
+                        .load("http://192.168.43.34:8082/getLocalImage/itemid/" + text)
+                        .placeholder(R.drawable.ic_bg_collection)
+                        .into(imageView);
+
+            }
+        });
+    }
+
+    private void showUI(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_name.setText(text);
+            }
+        });
+    }
+
+    private void showUI1(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_collection.setText(text);
+            }
+        });
+    }
+
+    private void showUI2(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_join.setText(text);
+            }
+        });
+    }
+
+    private void showUI3(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_time.setText(text);
+            }
+        });
+    }
+
+    private void showUI4(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_address.setText(text);
+            }
+        });
+    }
+
+    private void showUI5(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_phone.setText(text);
+            }
+        });
+    }
+
+    private void showUI6(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_money.setText(text);
+            }
+        });
+    }
+
+    private void showUI7(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_details.setText(text);
+            }
+        });
+    }
+
+    private void showUI8(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                item_label.setText(text);
+            }
+        });
     }
 }

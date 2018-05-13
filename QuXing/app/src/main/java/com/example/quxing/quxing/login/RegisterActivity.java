@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 e.printStackTrace();
                             }
 
-                            String s = HttpHandler.executeHttpPost("http://192.168.43.34:8081/register", jsonObject.toString());
+                            String s = HttpHandler.executeHttpPost("http://192.168.43.34:8082/register", jsonObject.toString());
 
                             if ("success".equals(s)) {
                                 animateRevealClose();

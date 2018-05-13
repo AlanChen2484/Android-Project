@@ -50,6 +50,7 @@
             android:src="@drawable/ic_wode_personalimage" />
 
         <TextView
+            android:id="@+id/remarks"
             android:layout_width="100dp"
             android:layout_height="24dp"
             android:layout_below="@+id/round_1"

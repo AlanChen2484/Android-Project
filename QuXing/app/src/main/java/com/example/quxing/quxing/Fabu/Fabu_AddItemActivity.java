@@ -1,12 +1,15 @@
 package com.example.quxing.quxing.Fabu;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,6 +24,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -29,11 +33,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.quxing.quxing.Auxiliary.Item_DetailsActivity;
+import com.example.quxing.quxing.DataBaseHelper.DataBaseHelper;
 import com.example.quxing.quxing.Main.MainActivity;
 import com.example.quxing.quxing.Main.Main_CityActivity;
 import com.example.quxing.quxing.R;
@@ -41,6 +47,7 @@ import com.example.quxing.quxing.Tools.HttpHandler;
 import com.example.quxing.quxing.Wode.Wode_AboutActivity;
 import com.example.quxing.quxing.login.LoginActivity;
 import com.example.quxing.quxing.login.RegisterActivity;
+import com.example.quxing.quxing.model.ItembackupInfoBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,11 +61,13 @@ import java.util.Date;
 import java.util.jar.Manifest;
 
 public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private DataBaseHelper dbHelper;
     private Uri imageUri;
     public static final int TAKE_PHOTO = 1;
     public static final int CROP_PHOTO = 2;
     public static final int GET_PHOTO = 3;
+    public static final int GET_ADDRESS = 4;
+    public static int itemid;
     private Button takePhoto;
     private Button getPhoto;
     private ImageView picture;
@@ -67,7 +76,7 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
     File f;
     private String currentPath = null;
     public static final int REQUEST_CODE_GET_PHOTO = 1;
-
+    private SQLiteDatabase db;
     private ImageButton btn;
     private ImageButton btn2;
     private TextView tv;
@@ -80,11 +89,14 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
     private EditText callnumber1;
     private EditText details1;
     private EditText money1;
+    private Spinner itemlabel1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fabu__additem);
+        ItembackupInfoBean itembackupInfoBean = (ItembackupInfoBean) getIntent().getSerializableExtra("data");
+        dbHelper = new DataBaseHelper(this, "QuXing.db", null, 1);//创建数据库
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_fabu_item);
         toolbar.setTitle("");
@@ -99,16 +111,19 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
 
         Button address = (Button) findViewById(R.id.button_address);
         Button put = (Button) findViewById(R.id.button_put);
+        Button save = (Button) findViewById(R.id.button_save);
 
         address.setOnClickListener(this);
         put.setOnClickListener(this);
+        save.setOnClickListener(this);
+
         itemname1 = (EditText) findViewById(R.id.editText_itemname);
         hostname1 = (EditText) findViewById(R.id.editText_host);
         address1 = (EditText) findViewById(R.id.editText_address);
         callnumber1 = (EditText) findViewById(R.id.editText_phone);
         details1 = (EditText) findViewById(R.id.editText_details);
+        itemlabel1 = (Spinner) findViewById(R.id.itemlabel);
         money1 = (EditText) findViewById(R.id.editText_money);
-
 
         /**
          *获取日期
@@ -122,9 +137,33 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                 new DatePickerDialog(Fabu_AddItemActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        tv.setText(String.format("%d-%d-%d", year, monthOfYear + 1, dayOfMonth));
+                        Calendar calendar = Calendar.getInstance();
+                        //获取系统的日期
+                        //年
+                        int year1 = calendar.get(Calendar.YEAR);
+                        //月
+                        int month1 = calendar.get(Calendar.MONTH) + 1;
+                        //日
+                        int day1 = calendar.get(Calendar.DAY_OF_MONTH);
+//    //小时
+//    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//    //分钟
+//    int minute = calendar.get(Calendar.MINUTE);
+//    //秒
+//    int second = calendar.get(Calendar.SECOND);
+//
+//    String str = (year + "-" + month + day + hour + minute + second);
+                        if (year > year1) {
+                            tv.setText(String.format("%d/%d/%d", year, monthOfYear + 1, dayOfMonth));
+                        } else if (year == year1 && (monthOfYear + 1) > month1) {
+                            tv.setText(String.format("%d/%d/%d", year, monthOfYear + 1, dayOfMonth));
+                        } else if (year == year1 && (monthOfYear + 1) == month1 && dayOfMonth > day1) {
+                            tv.setText(String.format("%d/%d/%d", year, monthOfYear + 1, dayOfMonth));
+                        } else {
+                            showToast("日期输入有误");
+                        }
                     }
-                }, 2018, 5, 1).show();
+                }, 2018, 1, 1).show();
             }
         });
 
@@ -147,36 +186,72 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
 
             }
         });
+
+        //传入数据内容
+        if (itembackupInfoBean != null) {
+//            dbHelper = new DataBaseHelper(this, "QuXing.db", null, 1);
+//            db = dbHelper.getReadableDatabase();
+//        db.execSQL("create table aa(id_rows integer primary key)");
+//        db.execSQL("insert into aa (id_rows) values(1)");
+//        db.execSQL("insert into Itembackupinfo (itemid) values(1)");
+//            Cursor cursor = db.rawQuery("select itemid from Itembackupinfo ", new String[]{});
+            itemid = itembackupInfoBean.getItemid();
+            itemname1.setText(String.valueOf(itembackupInfoBean.getItemname()));
+            hostname1.setText(String.valueOf(itembackupInfoBean.getHostname()));
+            address1.setText(String.valueOf(itembackupInfoBean.getAddress()));
+            callnumber1.setText(String.valueOf(itembackupInfoBean.getCallnumber()));
+            details1.setText(String.valueOf(itembackupInfoBean.getDetails()));
+//            itemlabel1.setText(String.valueOf(itembackupInfoBean.getMoney_yield()));
+            money1.setText(String.valueOf(itembackupInfoBean.getMoney()));
+        } else {
+            money1.setText("0");
+        }
     }
 
     //获取当前时间
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date curDate = new Date(System.currentTimeMillis());
     String str = formatter.format(curDate);
 
-//    Calendar calendar = Calendar.getInstance();
-//    //获取系统的日期
-//    //年
-//    int year = calendar.get(Calendar.YEAR);
-//    //月
-//    int month = calendar.get(Calendar.MONTH) + 1;
-//    //日
-//    int day = calendar.get(Calendar.DAY_OF_MONTH);
-//    //小时
-//    int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//    //分钟
-//    int minute = calendar.get(Calendar.MINUTE);
-//    //秒
-//    int second = calendar.get(Calendar.SECOND);
-//
-//    String str = (year + "-" + month + day + hour + minute + second);
-
+    //取下拉框的活动标签
+    public int sprinner() {
+        String itemlabel = itemlabel1.getSelectedItem().toString();
+//        showToast(itemlabel + "123");
+//        if("教育".equals(itemlabel))
+        if (itemlabel.equals("教育"))
+            return 1;
+        else if (itemlabel.equals("文艺")) {
+            return 2;
+        } else if (itemlabel.equals("户外")) {
+            return 3;
+        } else if (itemlabel.equals("旅行")) {
+            return 4;
+        } else if (itemlabel.equals("校园")) {
+            return 5;
+        } else if (itemlabel.equals("交友")) {
+            return 6;
+        } else if (itemlabel.equals("游戏")) {
+            return 7;
+        } else {
+            return 0;
+        }
+    }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_put:
                 if (checkEdit()) {
-                    t.start();
+                    //删除已选数据
+                    dbHelper = new DataBaseHelper(this, "QuXing.db", null, 1);
+                    db = dbHelper.getReadableDatabase();
+                    db.execSQL("delete from Itembackupinfo where itemid =" + itemid, new String[]{});
+                    db.close();
+                    dbHelper.close();
+                    post.start();
+
+                    Intent intent = new Intent(this, FabuActivity.class);
+                    this.startActivity(intent);
+                    finish();
 //                    new Thread() {
 //                        public void run() {
 //                            //定义传入字符串数据
@@ -220,6 +295,14 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
 //                    }.start();
                 }
                 break;
+            case R.id.button_save:
+                if (checkEdit()) {
+                    save.start();
+                    Intent intent = new Intent(this, FabuActivity.class);
+                    this.startActivity(intent);
+                    finish();
+                }
+                break;
             case R.id.takephoto_imgbutton:
                 takePhoto();
                 break;
@@ -227,8 +310,8 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                 getPhoto();
                 break;
             case R.id.button_address:
-                Intent intent_1 = new Intent(this, BaiduMapActivity.class);
-                startActivity(intent_1);
+                Intent intent = new Intent(this, BaiduMapActivity.class);
+                startActivityForResult(intent, 4);
                 break;
             default:
                 break;
@@ -236,7 +319,39 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    Thread t = new Thread() {
+    Thread save = new Thread() {
+        public void run() {
+            /**
+             * 将数据保存至数据库
+             */
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            //定义传入字符串数据
+            String itemname = itemname1.getText().toString().trim();
+            String hostname = hostname1.getText().toString().trim();
+            String address = address1.getText().toString().trim();
+            String callnumber = callnumber1.getText().toString().trim();
+            String details = details1.getText().toString().trim();
+            int money = Integer.parseInt(money1.getText().toString());
+            String itemtime = (tv.getText().toString() + " " + tv2.getText().toString()).trim();
+            String createtime = str.toString().trim();
+            int itemlabel = sprinner();//取下拉框的活动标签
+            ContentValues values = new ContentValues();
+            values.put("itemname", itemname);
+            values.put("hostname", hostname);
+            values.put("address", address);
+            values.put("callnumber", callnumber);
+            values.put("details", details);
+            values.put("money", money);
+            values.put("itemtime", itemtime);
+            values.put("createtime", createtime);
+            values.put("itemlabel", itemlabel);
+            db.insert("Itembackupinfo", null, values);
+            db.close();
+            showToast("活动信息已保存");
+        }
+    };
+
+    Thread post = new Thread() {
         public void run() {
             //定义传入字符串数据
             String itemname = itemname1.getText().toString().trim();
@@ -245,8 +360,9 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
             String callnumber = callnumber1.getText().toString().trim();
             String details = details1.getText().toString().trim();
             int money = Integer.parseInt(money1.getText().toString());
-            String itemtime = (tv.getText().toString() + tv2.getText().toString()).trim();
+            String itemtime = (tv.getText().toString() + " " + tv2.getText().toString()).trim();
             String releasetime = str.toString().trim();
+            int itemlabel = sprinner();//取下拉框的活动标签
             JSONObject jsonObject = new JSONObject();//构建即直接实例化一个JSONObject对象
             try {
                 //调用其put()方法,将数据写入
@@ -258,36 +374,49 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                 jsonObject.put("money", money);
                 jsonObject.put("itemtime", itemtime);
                 jsonObject.put("releasetime", releasetime);
+                jsonObject.put("itemlabel", itemlabel);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            String s = HttpHandler.executeHttpPost("http://192.168.43.34:8081/item", jsonObject.toString());
+            String s = HttpHandler.executeHttpPost("http://192.168.43.34:8082/item", jsonObject.toString());
 
             if ("success".equals(s)) {
-                showToast("项目已存储");
+                showToast("活动已发布");
                 Intent intent_set = new Intent(Fabu_AddItemActivity.this, FabuActivity.class);
                 finish();
                 startActivity(intent_set);
             } else if ("fail".equals(s)) {
-                showToast("项目已存在");
+                showToast("活动已存在");
             }
         }
     };
-//        t.start();
 
     //判定条件
     public boolean checkEdit() {
 
         if (itemname1.getText().toString().equals("")) {
-            Toast.makeText(Fabu_AddItemActivity.this, "项目名不能为空", Toast.LENGTH_SHORT).show();
+            showToast("活动名不能为空");
             return false;
         }
-//        if (!userpwd2.getText().toString().equals(userpwd1.getText().toString())) {
-//            Toast.makeText(RegisterActivity.this, "两次输入的密码不同", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
+        if (address1.getText().toString().equals("")) {
+            showToast("活动地址不能为空");
+            return false;
+        }
+        if (callnumber1.getText().toString().equals("")) {
+            showToast("联系方式不能为空");
+            return false;
+        }
+        if (money1.getText().toString().equals("")) {
+            showToast("活动费用不能为空");
+            return false;
+        }
+        if (tv.getText().toString().equals("2018/01/01 00:00")) {
+            showToast("活动时间未设置");
+            return false;
+        }
+
         return true;
     }
 
@@ -300,7 +429,6 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -311,7 +439,6 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     private void takePhoto() {   // 拍照
         //创建File对象，用于存储拍照后的图片 //将此图片存储于SD卡的根目录下
@@ -394,9 +521,15 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                     picture.setImageBitmap(cropbitmap);
                 }
                 break;
-
-            default:
+            case GET_ADDRESS:
+                if (resultCode == RESULT_OK) {
+                    String returnedData = data.getStringExtra("data_return");
+                    Log.d("FirstActivity", returnedData);
+                    showToast(returnedData);
+                    address1.setText(returnedData);
+                }
                 break;
+            default:
         }
     }
 }

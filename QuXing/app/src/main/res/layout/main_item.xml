@@ -10,7 +10,10 @@
         android:layout_height="72dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_bg_collection" /><!--贴合X边，贴合Y边--><!--不保持长宽比（图片可能变形）-->
 
     <TextView
         android:id="@+id/item_name"
@@ -20,6 +23,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:layout_toRightOf="@id/item_image"
+        android:text="123"
         android:textColor="@color/black"
         android:textSize="16dp" />
 
@@ -37,11 +41,11 @@
         android:id="@+id/item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/item_address"
+        android:layout_alignStart="@+id/item_name"
         android:text="2017/4/30"
         android:textColor="@color/grey"
-        android:textSize="10dp"
-        android:layout_above="@+id/item_address"
-        android:layout_alignStart="@+id/item_name" />
+        android:textSize="10dp" />
 
     <TextView
         android:id="@+id/item_rmb"

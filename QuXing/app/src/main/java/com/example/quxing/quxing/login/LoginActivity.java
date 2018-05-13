@@ -1,7 +1,9 @@
 package com.example.quxing.quxing.login;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,9 +22,12 @@ import com.example.quxing.quxing.DataBaseHelper.DataBaseHelper;
 import com.example.quxing.quxing.R;
 import com.example.quxing.quxing.Main.MainActivity;
 import com.example.quxing.quxing.Tools.HttpHandler;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.example.quxing.quxing.Auxiliary.ToastUtil.showToast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -93,28 +98,52 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.bt_go:
 //                if (loginClicked()) {
 
-//                //获取用户名密码
-//                final String username = etUsername.getText().toString().trim();
-//                final String pwd = etPassword.getText().toString().trim();
-//                new Thread() {
-//                    public void run() {
-//                        JSONObject jsonObject = new JSONObject();
-//                        try {
-//                            jsonObject.put("username", username);
-//                            jsonObject.put("password", pwd);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        String s = HttpHandler.executeHttpPost("http://192.168.43.34:8081/login", jsonObject.toString());
+                //获取用户名密码
+                final String username = etUsername.getText().toString().trim();
+                final String pwd = etPassword.getText().toString().trim();
+
+                new Thread() {
+                    public void run() {
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("username", username);
+                            jsonObject.put("password", pwd);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+//                        String s = HttpHandler.executeHttpPost("http://192.168.43.34:8082/login", jsonObject.toString());
 //                        if ("登录成功".equals(s)) {
-                            Intent intent_1 = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent_1);
+//
+//                            Intent intent_1 = new Intent(LoginActivity.this, MainActivity.class);
+//                            startActivity(intent_1);
+//
 //                        } else {
 //                            showToast(s);
 //                        }
-//                    }
-//                }.start();
-//                break;
+                        String s = HttpHandler.executeHttpPost("http://192.168.43.34:8082/login", jsonObject.toString());
+                        Gson gson = new Gson();
+                        if (s.contains("error")) {
+                            try {
+                                showToast(new JSONObject(s).getString("error"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+//                            User user = gson.fromJson(s, User.class);
+//                            SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = preferences.edit();
+//                            editor.putString("username", username);
+//                            editor.putString("password", pwd);
+//                            editor.putInt("id", user.getId());
+//                            editor.commit();
+                            Intent intent_1 = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent_1);
+                        }
+                    }
+                }.start();
+                break;
+
+
 
             default:
                 break;
@@ -136,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(LoginActivity.this,"登录失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,"登录失败,用户名或密码错误", Toast.LENGTH_SHORT).show();
             }
         });
     }

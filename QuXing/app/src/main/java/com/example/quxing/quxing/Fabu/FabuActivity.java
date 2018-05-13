@@ -29,7 +29,7 @@ import com.github.kimkevin.slidingicontablayout.wigets.SlidingIconTabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FabuActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
+public class FabuActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
 
     private ViewPager mViewPager;
     private FabuTabAdapter mAdapter;
@@ -123,7 +123,6 @@ public class FabuActivity extends AppCompatActivity implements BottomNavigationB
     }
 
 
-
     //添加按钮图标
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,11 +136,13 @@ public class FabuActivity extends AppCompatActivity implements BottomNavigationB
             case R.id.fabu_add:
                 Intent intent = new Intent(this, Fabu_AddItemActivity.class);
                 this.startActivity(intent);
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-}
 
+
+}
 
 

@@ -1,6 +1,7 @@
 package com.example.quxing.quxing.Fabu;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
@@ -8,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +25,13 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.example.quxing.quxing.Main.MainActivity;
+import com.example.quxing.quxing.Main.Main_CityActivity;
 import com.example.quxing.quxing.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class BaiduMapActivity extends AppCompatActivity {
 
     public LocationClient mLocationClient;
@@ -37,13 +42,20 @@ public class BaiduMapActivity extends AppCompatActivity {
 
     private BaiduMap baiduMap;
 
+    public static double Latitude;
+    public static double Longitude;
+
     private boolean isFirstLocate = true;
+    double a;
+    double b;
+
+    private MyLocationListener myListener = new MyLocationListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLocationClient = new LocationClient(getApplicationContext());
-        mLocationClient.registerLocationListener(new MyLocationListener());
+        mLocationClient.registerLocationListener(myListener);
         SDKInitializer.initialize(getApplicationContext());
 
         setContentView(R.layout.activity_baidu_map);
@@ -72,16 +84,24 @@ public class BaiduMapActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(BaiduMapActivity.this, permissions, 1);
         } else {
             requestLocation();
+            initLocation();
         }
     }
 
     private void navigateTo(BDLocation location) {
         if (isFirstLocate) {
             Toast.makeText(this, "定位至  " + location.getAddrStr(), Toast.LENGTH_SHORT).show();
+             /*
+                利用Intent传递数据给下一个活动
+                 */
+            Intent intent = new Intent();
+            intent.putExtra("data_return", location.getAddrStr());
+            setResult(RESULT_OK, intent);
+
             LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             baiduMap.animateMapStatus(update);
-            update = MapStatusUpdateFactory.zoomTo(14f);
+            update = MapStatusUpdateFactory.zoomTo(18f);
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;
 
@@ -91,13 +111,14 @@ public class BaiduMapActivity extends AppCompatActivity {
                 Builder();
         locationBuilder.latitude(location.getLatitude());
         locationBuilder.longitude(location.getLongitude());
+        a = location.getLatitude();
+        b = location.getLongitude();
+
         MyLocationData locationData = locationBuilder.build();
         baiduMap.setMyLocationData(locationData);
-
     }
 
     private void requestLocation() {
-        initLocation();
         mLocationClient.start();
     }
 
@@ -107,14 +128,16 @@ public class BaiduMapActivity extends AppCompatActivity {
         option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
 
+
         //设定中心点坐标
-        LatLng cenpt =  new LatLng(30.3,120.15);
+//        LatLng cenpt = new LatLng(30, 121);
+        LatLng cenpt = new LatLng(a, b);
         //定义地图状态
         MapStatus mMapStatus = new MapStatus.Builder()
                 //要移动的点
                 .target(cenpt)
-                //放大地图到20倍
-                .zoom(20)
+                //放大地图到XX倍
+                .zoom(14)
                 .build();
 
         //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
@@ -122,7 +145,6 @@ public class BaiduMapActivity extends AppCompatActivity {
 
         //改变地图状态
         baiduMap.setMapStatus(mMapStatusUpdate);
-
     }
 
     @Override
@@ -169,6 +191,7 @@ public class BaiduMapActivity extends AppCompatActivity {
         }
     }
 
+
     public class MyLocationListener implements BDLocationListener {
 
         @Override
@@ -188,15 +211,29 @@ public class BaiduMapActivity extends AppCompatActivity {
 //                currentPosition.append("网络");
 //            }
 //            positionText.setText(currentPosition);
-
             if (location.getLocType() == BDLocation.TypeGpsLocation
                     || location.getLocType() == BDLocation.TypeNetWorkLocation) {
                 navigateTo(location);
 
-
             }
+            a = location.getLatitude();
+            b = location.getLongitude();
+
+            initLocation();
         }
 
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent_set = new Intent(BaiduMapActivity.this, Fabu_AddItemActivity.class);
+                finish();
+                startActivity(intent_set);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

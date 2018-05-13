@@ -233,7 +233,6 @@ public class InvestmentActivity extends AppCompatActivity {
                         tvincome1.setText("+" + String.valueOf(income1_2));
                         tvasset.setText(String.valueOf(assetdb_2));
 
-
                         Toast.makeText(InvestmentActivity.this, "项目添加成功", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(InvestmentActivity.this, Asset_AnalysisActivity.class);
                         startActivity(intent);
@@ -288,7 +287,6 @@ public class InvestmentActivity extends AppCompatActivity {
         String day = String.valueOf(longDay);
         return day;
     }
-
 
     public int saveNote() {
         ContentValues cv = new ContentValues();

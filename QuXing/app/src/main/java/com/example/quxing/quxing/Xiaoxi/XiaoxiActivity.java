@@ -38,7 +38,7 @@ public class XiaoxiActivity extends AppCompatActivity implements BottomNavigatio
         initItems();//初始化滚动条数据
 
         XiaoxiAdapter adapter = new XiaoxiAdapter(XiaoxiActivity.this, R.layout.xiaoxi_item, xiaoxiList);
-        ListView listView = (ListView) findViewById(R.id.listview_main);
+        ListView listView = (ListView) findViewById(R.id.listview_xiaoxi);
         listView.setAdapter(adapter);
 
         //BottomNavigationBar-底部导航栏
@@ -59,7 +59,6 @@ public class XiaoxiActivity extends AppCompatActivity implements BottomNavigatio
         bottomNavigationBar.setTabSelectedListener(this);
 
     }
-
 
     public void onTabSelected(int position) {
         lastSelectedPosition = position;

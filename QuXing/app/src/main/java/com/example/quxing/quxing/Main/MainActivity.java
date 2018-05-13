@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,17 +25,23 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.quxing.quxing.Auxiliary.Item_DetailsActivity;
 import com.example.quxing.quxing.Fabu.FabuActivity;
 import com.example.quxing.quxing.R;
+import com.example.quxing.quxing.Tools.HttpHandler;
 import com.example.quxing.quxing.Wode.WodeActivity;
 import com.example.quxing.quxing.Xiaoxi.XiaoxiActivity;
 
+import com.example.quxing.quxing.model.ItemInfoBean;
+import com.google.gson.Gson;
+import com.google.common.reflect.TypeToken;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
 
-    //RecycleView
-    private List<Item> itemList = new ArrayList<>();
+    //ListView
+    private List<ItemInfoBean> itemList = new ArrayList<>();
 
     //轮播图ViewPager
     private ViewPager mViewPager;
@@ -55,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private BottomNavigationBar bottomNavigationBar;
     int lastSelectedPosition = 0;//定义页码
 
+    private TextView itemname;
+    private ItemAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +81,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         setSupportActionBar(toolbar);
 
         //ListView
-        initItems();//初始化滚动条数据
+//        initItems();//初始化滚动条数据
 
-        ItemAdapter adapter = new ItemAdapter(MainActivity.this, R.layout.main_item, itemList);
+//        View view = inflater.inflate(R.layout.activity_main__details, container,false);
+
+        adapter = new ItemAdapter(MainActivity.this, R.layout.main_item, itemList);
         ListView listView = (ListView) findViewById(R.id.listview_main);
         listView.setAdapter(adapter);
 
@@ -91,10 +104,63 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 .setFirstSelectedPosition(lastSelectedPosition)
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .initialise();
+
         bottomNavigationBar.setTabSelectedListener(this);
 
+        itemname = (TextView) findViewById(R.id.item_name);
+
+        new Thread() {
+            public void run() {
+                parseJOSNWithGSON();
+            }
+        }.start();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ItemInfoBean item = itemList.get(i);
+                Context context = MainActivity.this;
+                Intent intent = new Intent(context, Item_DetailsActivity.class);
+                intent.putExtra("itemname", item.getItemname());
+                startActivity(intent);
+            }
+        });
+//        return view;
     }
 
+    private void parseJOSNWithGSON() {
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget");
+        Gson gson = new Gson();
+        itemList.clear();
+        //更新适配器数据
+        itemList.addAll((Collection<? extends ItemInfoBean>) gson.fromJson(jsondata, new TypeToken<List<ItemInfoBean>>() {
+        }.getType()));
+        showToast();
+    }
+
+    private void showToast() {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+//    private void initItems() {
+//        for (int i = 0; i < 2; i++) {
+//            Item Act1 = new Item("让我们一起去看星空吧", R.drawable.ic_wode_personalbackground);
+//            itemList.add(Act1);
+//            Item Act2 = new Item("小游戏爱好者的聚会", R.drawable.ic_wode_personalimage);
+//            itemList.add(Act2);
+//            Item Act3 = new Item("小宠物们的聚会", R.drawable.ic_main_dog);
+//            itemList.add(Act3);
+//            Item Act4 = new Item("古风漫谈", R.drawable.ic_main_coser);
+//            itemList.add(Act4);
+//            Item Act5 = new Item("徒步旅行的点滴", R.drawable.ic_main_travel);
+//            itemList.add(Act5);
+//        }
+//    }
 
     public void onTabSelected(int position) {
         lastSelectedPosition = position;
@@ -154,21 +220,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 //        }
 //        return toolbar;
 //    }
-
-    private void initItems() {
-        for (int i = 0; i < 2; i++) {
-            Item Act1 = new Item("让我们一起去看星空吧", R.drawable.ic_wode_personalbackground);
-            itemList.add(Act1);
-            Item Act2 = new Item("小游戏爱好者的聚会", R.drawable.ic_wode_personalimage);
-            itemList.add(Act2);
-            Item Act3 = new Item("小宠物们的聚会", R.drawable.ic_main_dog);
-            itemList.add(Act3);
-            Item Act4 = new Item("古风漫谈", R.drawable.ic_main_coser);
-            itemList.add(Act4);
-            Item Act5 = new Item("徒步旅行的点滴", R.drawable.ic_main_travel);
-            itemList.add(Act5);
-        }
-    }
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -237,16 +288,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                     Intent intent_1 = new Intent(MainActivity.this, Item_DetailsActivity.class);
                     startActivity(intent_1);
 
-                    Toast.makeText(MainActivity.this, "图片1被点击", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "让我们一起去看星空吧", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.pager_image2:
-                    Toast.makeText(MainActivity.this, "图片2被点击", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "小游戏爱好者的聚会", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.pager_image3:
-                    Toast.makeText(MainActivity.this, "图片3被点击", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "小宠物们的聚会", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.pager_image4:
-                    Toast.makeText(MainActivity.this, "图片4被点击", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "古风漫谈", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -262,6 +313,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
+
             @Override
             public void onPageSelected(int position) {
                 if (mImageList.size() == 0) {

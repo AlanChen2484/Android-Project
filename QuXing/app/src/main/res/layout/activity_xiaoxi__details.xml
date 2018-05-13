@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.quxing.quxing.Main.Main_CityActivity">
+    tools:context="com.example.quxing.quxing.Xiaoxi.Xiaoxi_DetailsActivity">
 
     <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fl1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_city"
+            android:id="@+id/toolbar_xiaoxidetails"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="?attr/colorPrimary"
@@ -24,12 +24,12 @@
             app:popupTheme="@style/Theme.AppCompat.Light">
 
             <TextView
-                android:id="@+id/toolbar_title1"
+                android:id="@+id/toolbar_title2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:singleLine="true"
-                android:text="同城"
+                android:text="群聊详情"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -38,9 +38,30 @@
     </FrameLayout>
 
     <ListView
-        android:id="@+id/listview_main"
+        android:id="@+id/listview_xiaoxidetails"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"></ListView>
+
+    <LinearLayout
+        android:id="@+id/bottom_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:text="发送"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
 </LinearLayout>
