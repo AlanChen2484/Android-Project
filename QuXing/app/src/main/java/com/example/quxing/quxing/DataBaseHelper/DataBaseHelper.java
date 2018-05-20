@@ -48,14 +48,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "callnumber text ,"
             + "money integer ,"
             + "address text ,"
-            + "details text)";
+            + "details text,"
+            + "username text)"; //创建者用户名
+
     //    private final String createTb = "CREATE TABLE User (_id INTEGER PRIMARY KEY AUTOINCREMENT," +
 //            "name VARCHAR2,avatar BLOB)";
 
-    public static final String CREATE_Communcation = "create table Communcation("
-            + "communcationid integer primary key autoincrement,"
-            + "communcationtexttime text ,"
-            + "communcationtext text )";         //活动名称
+//    public static final String CREATE_Communcation = "create table Communcation("
+//            + "communcationid integer primary key autoincrement,"
+//            + "communcationtexttime text ,"
+//            + "communcationtext text )";         //活动名称
 
     private Context mContext;
 
@@ -68,7 +70,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_Itembackupinfo);
-        db.execSQL(CREATE_Communcation);
+//        db.execSQL(CREATE_Communcation);
 //        String sql = "Create table " + TABLE_NAME + "(" + BaseColumns._ID
 //                + " integer primary key autoincrement," + PictureColumns.PICTURE
 //                + " blob not null);";
@@ -102,7 +104,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists Itembackupinfo");
-        db.execSQL("drop table if exists Communcation");
+//        db.execSQL("drop table if exists Communcation");
         String sql = " DROP TABLE IF EXISTS " + TABLE_NAME;
         db.execSQL(sql);
         onCreate(db);

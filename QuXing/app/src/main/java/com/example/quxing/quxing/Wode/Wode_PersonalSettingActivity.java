@@ -2,6 +2,7 @@ package com.example.quxing.quxing.Wode;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import com.example.quxing.quxing.Tools.HttpHandler;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,7 +61,10 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
     private DataBaseHelper dbHelper;
     private String url;
     private DBOperate dbOperate;
-    private Spinner userlabel, sex;
+    private Spinner userlabel, sex1;
+    private String username;
+    private int userid;
+    private JSONObject jsonObject;
 
     MaterialEditText name, city, personhomepage;
 
@@ -80,7 +85,7 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
         city = (MaterialEditText) findViewById(R.id.city);
         personhomepage = (MaterialEditText) findViewById(R.id.personHomepage);
         userlabel = (Spinner) findViewById(R.id.label);
-        sex = (Spinner) findViewById(R.id.sex);
+        sex1 = (Spinner) findViewById(R.id.sex);
 //        if (getDrawable().size() != 0) {
 //            picture.setImageDrawable(getDrawable().get(0));
 //        }
@@ -89,9 +94,17 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
 //        readImage();
 //        personalimage = (Button) findViewById(R.id.personalimage_button);
 //        personalimage.setOnClickListener(this);
+        SharedPreferences pref = getSharedPreferences("user", MODE_PRIVATE);
+        username = pref.getString("username", "");
+        userid = pref.getInt("userid", 1);
+
+        new Thread() {
+            public void run() {
+                parseJOSNWithGSON1();
+            }
+        }.start();
 
     }
-
     //    private ArrayList<Drawable> getDrawable() {
 //        DataBaseHelper pd = new DataBaseHelper(this);
 //        SQLiteDatabase sd = pd.getWritableDatabase();
@@ -115,6 +128,7 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
 //        }
 //        return drawables;
 //    }
+
     Thread post = new Thread() {
         public void run() {
             //定义传入字符串数据
@@ -122,15 +136,16 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
             String city1 = city.getText().toString().trim();
             String personhomepage1 = personhomepage.getText().toString().trim();
             int userlabel = sprinner();//取下拉框的活动标签
-            String sexl = sex.getSelectedItem().toString();
-            JSONObject jsonObject = new JSONObject();//构建即直接实例化一个JSONObject对象
+            int sex = sprinner1();//取下拉框的性别
+            jsonObject = new JSONObject();//构建即直接实例化一个JSONObject对象
             try {
                 //调用其put()方法,将数据写入
                 jsonObject.put("name", name1);
                 jsonObject.put("city", city1);
                 jsonObject.put("personhomepage", personhomepage1);
-                jsonObject.put("userlabe", userlabel);
-                jsonObject.put("sex", sexl);
+                jsonObject.put("userlabel", userlabel);
+                jsonObject.put("sex", sex);
+                jsonObject.put("username", username);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -149,6 +164,66 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
         }
     };
 
+    private void parseJOSNWithGSON1() {
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/userget/getusername/" + username);
+        try {
+            JSONArray jsonArray = new JSONArray(jsondata);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                String userlabel1 = object.getString("userlabel");
+                String city1 = object.getString("city");
+                String name1 = object.getString("name");
+                String personhomepage1 = object.getString("personhomepage");
+
+                showUI(name1);
+                showUI2(city1);
+                showUI3(personhomepage1);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showUI(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                name.setText(text);
+            }
+        });
+    }
+
+    private void showUI2(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                city.setText(text);
+            }
+        });
+    }
+
+    private void showUI3(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                personhomepage.setText(text);
+            }
+        });
+    }
+
+
+    //取下拉框的性别
+    public int sprinner1() {
+        String sex = sex1.getSelectedItem().toString();
+        if ("男".equals(sex))
+            return 1;
+        if ("女".equals(sex))
+            return 2;
+        else {
+            return 0;
+        }
+    }
 
     //取下拉框的个人兴趣标签
     public int sprinner() {
@@ -171,6 +246,27 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
             return 7;
         } else {
             return 0;
+        }
+    }
+
+    //取下拉框的活动标签
+    public String sprinner3(final String text) {
+        if (text.equals("1"))
+            return "教育";
+        else if (text.equals("2")) {
+            return "文艺";
+        } else if (text.equals("3")) {
+            return "户外";
+        } else if (text.equals("4")) {
+            return "旅行";
+        } else if (text.equals("5")) {
+            return "校园";
+        } else if (text.equals("6")) {
+            return "交友";
+        } else if (text.equals("7")) {
+            return "游戏";
+        } else {
+            return "教育";
         }
     }
 
@@ -219,7 +315,6 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
 //        dbOperate.saveImage();
 //    }
 
-
     // 定向到图片库
     private void getPhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK,
@@ -260,9 +355,10 @@ public class Wode_PersonalSettingActivity extends AppCompatActivity implements V
         switch (item.getItemId()) {
             case android.R.id.home:
 //                saveImage(url);
-                Intent intent_set = new Intent(Wode_PersonalSettingActivity.this, Wode_SettingActivity.class);
+
+                post.start();
+
                 finish();
-                startActivity(intent_set);
             default:
                 return super.onOptionsItemSelected(item);
         }

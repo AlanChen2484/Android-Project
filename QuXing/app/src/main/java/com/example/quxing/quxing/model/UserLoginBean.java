@@ -7,12 +7,12 @@ import android.content.Intent;
  */
 
 public class UserLoginBean {
-    private Intent Userid;
+    private int Userid;
     private String Username;
     private String Password;
     private boolean Loginstate;
 
-    public Intent getUserid() {
+    public int getUserid() {
         return Userid;
     }
 
@@ -28,7 +28,7 @@ public class UserLoginBean {
         return Loginstate;
     }
 
-    public void setUserid(Intent userid) {
+    public void setUserid(int userid) {
         Userid = userid;
     }
 

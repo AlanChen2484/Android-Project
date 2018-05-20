@@ -1,5 +1,6 @@
 package com.example.quxing.quxing.Auxiliary;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,6 +26,8 @@ import com.example.quxing.quxing.Main.MainActivity;
 import com.example.quxing.quxing.R;
 import com.example.quxing.quxing.Tools.HttpHandler;
 import com.example.quxing.quxing.login.LoginActivity;
+import com.example.quxing.quxing.login.RegisterActivity;
+import com.example.quxing.quxing.model.ItemInfoBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,8 +43,8 @@ public class Item_DetailsActivity extends AppCompatActivity implements View.OnCl
 //                    R.mipmap.ic_wode_collection,
 //                    R.mipmap.ic_wode_collection1,
 //            };
-
     //    int currImg = 0;
+
     private Context context;
     TextView address;
     private static String address1 = null;
@@ -48,13 +52,15 @@ public class Item_DetailsActivity extends AppCompatActivity implements View.OnCl
             item_address, item_phone, item_details, item_money, item_label;
     private String itemname;
     private int itemid;
-
+    private ItemInfoBean itemInfoBean;
+    private String username, password;
+    private int userid;
+    Button join;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__details);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_details);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -71,6 +77,9 @@ public class Item_DetailsActivity extends AppCompatActivity implements View.OnCl
 //        });
         address = (TextView) findViewById(R.id.item_address);
         address.setOnClickListener(this);
+        join = (Button) findViewById(R.id.join);
+        join.setOnClickListener(this);
+
         Item_DetailsActivity.address1 = address.getText().toString();
 
         item_name = (TextView) findViewById(R.id.item_name);
@@ -83,10 +92,13 @@ public class Item_DetailsActivity extends AppCompatActivity implements View.OnCl
         item_details = (TextView) findViewById(R.id.item_details);
         item_label = (TextView) findViewById(R.id.item_label);
 //        imageView = (ImageView) findViewById(R.id.itemimage);
+        SharedPreferences pref = getSharedPreferences("user", MODE_PRIVATE);
+        userid = pref.getInt("userid", 1);
+        username = pref.getString("username", "");
 
         Intent intent = getIntent();
         itemname = intent.getStringExtra("itemname");
-//        itemid = intent.getStringExtra("itemid");
+//        itemid = Integer.parseInt(intent.getStringExtra("itemid"));
 
         new Thread() {
             public void run() {
@@ -111,6 +123,7 @@ public class Item_DetailsActivity extends AppCompatActivity implements View.OnCl
                 String details1 = object.getString("details");
                 String label = object.getString("itemlabel");
                 Integer itemid1 = object.getInt("itemid");
+//                itemid = object.getInt("itemid");
 
 //                SimpleDateFormat dateFormater_1 = new SimpleDateFormat("yyyy-MM-dd");
 //                Date date_1= new Date(object.getLong("starttime"));
@@ -128,7 +141,6 @@ public class Item_DetailsActivity extends AppCompatActivity implements View.OnCl
                 showUI7(details1);
                 showUI8(sprinner(label));
                 showImg(itemid1);
-
 //                actdis_content.setText(content);
 //                actdis_sourcename.setText(source);
 //                actdis_address.setText(address);
@@ -160,6 +172,10 @@ public class Item_DetailsActivity extends AppCompatActivity implements View.OnCl
 //                startNavi();
                 foundAddress();
                 break;
+            case R.id.join:
+                joinitem.start();
+//                Toast.makeText(Item_DetailsActivity.this, "已成功参与活动", Toast.LENGTH_SHORT).show();
+
 //            case R.id.main_new:
 //                Intent intent_3 = new Intent(this,Main_NewActivity.class);
 //                startActivity(intent_3);
@@ -167,6 +183,55 @@ public class Item_DetailsActivity extends AppCompatActivity implements View.OnCl
             default:
                 break;
         }
+    }
+
+    //活动存储至连接表——参与活动
+    Thread joinitem = new Thread() {
+        public void run() {
+            int itemid1 = getItemid();
+            JSONObject jsonObject = new JSONObject();//构建即直接实例化一个JSONObject对象
+            try {
+                //调用其put()方法,将数据写入
+                jsonObject.put("itemid", itemid1);
+                jsonObject.put("itemname", itemname);
+                jsonObject.put("username", username);
+                jsonObject.put("userid", userid);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String s = HttpHandler.executeHttpPost("http://192.168.43.34:8082/usertoitem", jsonObject.toString());
+            if ("success".equals(s)) {
+                showToast("活动已参与");
+            } else {
+                showToast("已报名参加活动，请勿重复参加");
+            }
+        }
+    };
+
+    //获取itemid
+    public int getItemid() {
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget/getname/" + itemname);
+        try {
+            JSONArray jsonArray = new JSONArray(jsondata);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                int itemid1 = object.getInt("itemid");
+                return itemid1;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private void showToast(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(Item_DetailsActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void foundAddress() {

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -22,6 +23,7 @@ import com.example.quxing.quxing.DataBaseHelper.DataBaseHelper;
 import com.example.quxing.quxing.R;
 import com.example.quxing.quxing.Main.MainActivity;
 import com.example.quxing.quxing.Tools.HttpHandler;
+import com.example.quxing.quxing.model.UserLoginBean;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -39,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     FloatingActionButton fab;
 
     private DataBaseHelper dbHelper;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
 //        btTrd = (Button) findViewById(R.id.bt_trd);
         cv = (CardView) findViewById(R.id.cv);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
 
     }
 
@@ -129,13 +135,14 @@ public class LoginActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         } else {
-//                            User user = gson.fromJson(s, User.class);
-//                            SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = preferences.edit();
-//                            editor.putString("username", username);
-//                            editor.putString("password", pwd);
-//                            editor.putInt("id", user.getId());
-//                            editor.commit();
+                            UserLoginBean user = gson.fromJson(s, UserLoginBean.class);
+                            SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("username", username);
+                            editor.putString("password", pwd);
+                            editor.putInt("id", user.getUserid());
+                            editor.commit();
+                            editor.apply();
                             Intent intent_1 = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent_1);
                         }
@@ -144,10 +151,9 @@ public class LoginActivity extends AppCompatActivity {
                 break;
 
 
-
             default:
                 break;
-      }
+        }
     }
 
     //                Intent i2 = new Intent(this, MainActivity.class);
@@ -165,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(LoginActivity.this,"登录失败,用户名或密码错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "登录失败,用户名或密码错误", Toast.LENGTH_SHORT).show();
             }
         });
     }

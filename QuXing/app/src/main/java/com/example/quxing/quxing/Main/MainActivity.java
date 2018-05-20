@@ -2,6 +2,7 @@ package com.example.quxing.quxing.Main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v4.view.ViewPager;
@@ -32,6 +33,10 @@ import com.example.quxing.quxing.Xiaoxi.XiaoxiActivity;
 import com.example.quxing.quxing.model.ItemInfoBean;
 import com.google.gson.Gson;
 import com.google.common.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     private TextView itemname;
     private ItemAdapter adapter;
+    private String username, password;
+    private int userid;
+//    private int userlabel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
         itemname = (TextView) findViewById(R.id.item_name);
 
+        SharedPreferences pref = getSharedPreferences("user", MODE_PRIVATE);
+        userid = pref.getInt("userid", 1);
+        username = pref.getString("username", "");
+        password = pref.getString("password", "");
+
         new Thread() {
             public void run() {
                 parseJOSNWithGSON();
@@ -125,17 +139,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 startActivity(intent);
             }
         });
-//        return view;
+
+
     }
 
     private void parseJOSNWithGSON() {
-        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget");
+        //获取userlabel
+        int userlabel = parseJOSNWithGSON1();
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget/getitemlabel/" + userlabel);
         Gson gson = new Gson();
         itemList.clear();
         //更新适配器数据
         itemList.addAll((Collection<? extends ItemInfoBean>) gson.fromJson(jsondata, new TypeToken<List<ItemInfoBean>>() {
         }.getType()));
         showToast();
+    }
+
+    private int parseJOSNWithGSON1() {
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/userget");
+        try {
+            JSONArray jsonArray = new JSONArray(jsondata);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                int userlabel = object.getInt("userlabel");
+                return userlabel;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     private void showToast() {
@@ -301,6 +333,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                     break;
             }
         }
+
     }
 
     /**

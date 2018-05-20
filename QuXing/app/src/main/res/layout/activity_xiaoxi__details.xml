@@ -41,27 +41,34 @@
         android:id="@+id/listview_xiaoxidetails"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></ListView>
+        android:layout_weight="1" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/bottom_buttons"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:background="@color/white">
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
+            android:id="@+id/xiaoxi_talking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="4dp"
+            android:layout_toStartOf="@+id/button_talkingput" />
+
+        <Button
+            android:id="@+id/button_talkingput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="4dp"
             android:background="@color/blue"
             android:text="发送"
             android:textColor="@color/white" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

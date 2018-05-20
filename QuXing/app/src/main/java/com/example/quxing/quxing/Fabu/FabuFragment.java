@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -57,6 +58,8 @@ public class FabuFragment extends Fragment {
     private List<ItemInfoBean> itemsList = new ArrayList<ItemInfoBean>();
     private TextView tv;
     private ItemAdapter itemadapter;
+    private String username;
+    private String password;
 
 //    private SimpleCursorAdapter adapter = null;
 //    private SQLiteDatabase dbRead;
@@ -105,6 +108,10 @@ public class FabuFragment extends Fragment {
             listView.setAdapter(itemadapter);
 //            tv = (TextView) view.findViewById(R.id.tv);
 
+            SharedPreferences pref = this.getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+            username = pref.getString("username", "");
+            password = pref.getString("password", "");
+
             new Thread() {
                 public void run() {
                     parseJOSNWithGSON();
@@ -147,8 +154,9 @@ public class FabuFragment extends Fragment {
         }
     }
 
+
     private void parseJOSNWithGSON() {
-        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget");
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget/getusername/" + username);
         Gson gson = new Gson();
         itemsList.clear();
         //更新适配器数据。
@@ -216,7 +224,6 @@ public class FabuFragment extends Fragment {
             itembackupInfoBean.setMoney(cursor.getInt(cursor.getColumnIndex("money")));
             itembackupInfoBean.setAddress(cursor.getString(cursor.getColumnIndex("address")));
             list.add(itembackupInfoBean);
-//            Log.e("test",moneyModel.getMoney_beginDate() +";" + moneyModel.get);
         }
         db.close();
         dbHelper.close();

@@ -1,10 +1,12 @@
 package com.example.quxing.quxing.Xiaoxi;
 
+import com.example.quxing.quxing.model.ItemInfoBean;
+
 /**
  * Created by 陈若韬 on 2018/4/17.
  */
 
-public class Xiaoxi {
+public class Xiaoxi extends ItemInfoBean {
     private String name;
     private int imageId;
 

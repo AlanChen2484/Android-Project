@@ -1,30 +1,47 @@
 package com.example.quxing.quxing.Xiaoxi;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.example.quxing.quxing.Auxiliary.Item_DetailsActivity;
 import com.example.quxing.quxing.Fabu.FabuActivity;
 import com.example.quxing.quxing.Main.*;
 import com.example.quxing.quxing.R;
+import com.example.quxing.quxing.Tools.HttpHandler;
 import com.example.quxing.quxing.Wode.WodeActivity;
+import com.example.quxing.quxing.model.ItemInfoBean;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class XiaoxiActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
+public class XiaoxiActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
 
-    private List<Xiaoxi> xiaoxiList = new ArrayList<>();
+    //ListView
+    private List<ItemInfoBean> itemList = new ArrayList<>();
+//    private List<Xiaoxi> xiaoxiList = new ArrayList<>();
 
+    private XiaoxiAdapter adapter;
     private BottomNavigationBar bottomNavigationBar;
     int lastSelectedPosition = 2;//定义页码
+    private String username, password;
+    private int userid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +51,25 @@ public class XiaoxiActivity extends AppCompatActivity implements BottomNavigatio
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        //ListView
-        initItems();//初始化滚动条数据
 
-        XiaoxiAdapter adapter = new XiaoxiAdapter(XiaoxiActivity.this, R.layout.xiaoxi_item, xiaoxiList);
+        SharedPreferences pref = getSharedPreferences("user", MODE_PRIVATE);
+        userid = pref.getInt("userid", 1);
+        username = pref.getString("username", "");
+        password = pref.getString("password", "");
+
+        //ListView
+//        initItems();//初始化滚动条数据
+
+        adapter = new XiaoxiAdapter(XiaoxiActivity.this, R.layout.xiaoxi_item, itemList);
         ListView listView = (ListView) findViewById(R.id.listview_xiaoxi);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
 
         //BottomNavigationBar-底部导航栏
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
@@ -58,6 +88,22 @@ public class XiaoxiActivity extends AppCompatActivity implements BottomNavigatio
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
 
+        new Thread() {
+            public void run() {
+                parseJOSNWithGSON();
+            }
+        }.start();
+
+    }
+
+    private void parseJOSNWithGSON() {
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/usertoitem/getusername/" + username);
+        Gson gson = new Gson();
+        itemList.clear();
+        //更新适配器数据
+        itemList.addAll((Collection<? extends ItemInfoBean>) gson.fromJson(jsondata, new TypeToken<List<ItemInfoBean>>() {
+        }.getType()));
+        showToast();
     }
 
     public void onTabSelected(int position) {
@@ -164,13 +210,23 @@ public class XiaoxiActivity extends AppCompatActivity implements BottomNavigatio
 //        }
 //    }
 
-    private void initItems() {
-        for (int i = 0; i < 1; i++) {
-            Xiaoxi Act1 = new Xiaoxi("让我们一起去看星空", R.drawable.ic_wode_personalbackground);
-            xiaoxiList.add(Act1);
-            Xiaoxi Act2 = new Xiaoxi("小游戏爱好者的聚会", R.drawable.ic_wode_personalimage);
-            xiaoxiList.add(Act2);
-        }
+    private void showToast() {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
+
+//    private void initItems() {
+//        for (int i = 0; i < 1; i++) {
+//            Xiaoxi Act1 = new Xiaoxi("让我们一起去看星空", R.drawable.ic_wode_personalbackground);
+//            xiaoxiList.add(Act1);
+//            Xiaoxi Act2 = new Xiaoxi("小游戏爱好者的聚会", R.drawable.ic_wode_personalimage);
+//            xiaoxiList.add(Act2);
+//        }
+//    }
+
 }
 

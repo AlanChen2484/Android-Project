@@ -6,7 +6,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -49,6 +52,7 @@ import com.example.quxing.quxing.login.LoginActivity;
 import com.example.quxing.quxing.login.RegisterActivity;
 import com.example.quxing.quxing.model.ItembackupInfoBean;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -90,8 +94,13 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
     private EditText details1;
     private EditText money1;
     private Spinner itemlabel1;
+    //    private SharedPreferences pref;
+//    private SharedPreferences.Editor editor;
+    private String username, password;
+    private int userid;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fabu__additem);
@@ -124,6 +133,12 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
         details1 = (EditText) findViewById(R.id.editText_details);
         itemlabel1 = (Spinner) findViewById(R.id.itemlabel);
         money1 = (EditText) findViewById(R.id.editText_money);
+
+//        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences pref = getSharedPreferences("user", MODE_PRIVATE);
+        userid = pref.getInt("userid", 1);
+        username = pref.getString("username", "");
+        password = pref.getString("password", "");
 
         /**
          *获取日期
@@ -201,7 +216,7 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
             address1.setText(String.valueOf(itembackupInfoBean.getAddress()));
             callnumber1.setText(String.valueOf(itembackupInfoBean.getCallnumber()));
             details1.setText(String.valueOf(itembackupInfoBean.getDetails()));
-//            itemlabel1.setText(String.valueOf(itembackupInfoBean.getMoney_yield()));
+
             money1.setText(String.valueOf(itembackupInfoBean.getMoney()));
         } else {
             money1.setText("0");
@@ -345,6 +360,7 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
             values.put("itemtime", itemtime);
             values.put("createtime", createtime);
             values.put("itemlabel", itemlabel);
+            values.put("username", username);//获取当前创建者用户名
             db.insert("Itembackupinfo", null, values);
             db.close();
             showToast("活动信息已保存");
@@ -375,6 +391,7 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
                 jsonObject.put("itemtime", itemtime);
                 jsonObject.put("releasetime", releasetime);
                 jsonObject.put("itemlabel", itemlabel);
+                jsonObject.put("username", username);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -384,6 +401,8 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
 
             if ("success".equals(s)) {
                 showToast("活动已发布");
+                parseJOSNWithGSON1();
+                parseJOSNWithGSON2();
                 Intent intent_set = new Intent(Fabu_AddItemActivity.this, FabuActivity.class);
                 finish();
                 startActivity(intent_set);
@@ -392,6 +411,59 @@ public class Fabu_AddItemActivity extends AppCompatActivity implements View.OnCl
             }
         }
     };
+
+    //活动存储至连接表
+    private void parseJOSNWithGSON1() {
+        int itemid1 = getItemid();
+        String itemname = itemname1.getText().toString().trim();
+        JSONObject jsonObject = new JSONObject();//构建即直接实例化一个JSONObject对象
+        try {
+            //调用其put()方法,将数据写入
+            jsonObject.put("itemid", itemid1);
+            jsonObject.put("itemname", itemname);
+            jsonObject.put("username", username);
+            jsonObject.put("userid", userid);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String s = HttpHandler.executeHttpPost("http://192.168.43.34:8082/usertoitem", jsonObject.toString());
+    }
+
+    //获取itemid
+    public int getItemid() {
+        String itemname = itemname1.getText().toString().trim();
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget/getname/" + itemname);
+        try {
+            JSONArray jsonArray = new JSONArray(jsondata);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                int itemid1 = object.getInt("itemid");
+                return itemid1;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    //信息存储至交流信息表
+    private void parseJOSNWithGSON2() {
+        int itemid1 = getItemid();
+        String itemname = itemname1.getText().toString().trim();
+        JSONObject jsonObject = new JSONObject();//构建即直接实例化一个JSONObject对象
+        try {
+            //调用其put()方法,将数据写入
+            jsonObject.put("itemid", itemid1);
+            jsonObject.put("itemname", itemname);
+            jsonObject.put("username", username);
+            jsonObject.put("comcontentinfo", "欢迎来到" + itemname + "活动");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String s = HttpHandler.executeHttpPost("http://192.168.43.34:8082/com", jsonObject.toString());
+    }
 
     //判定条件
     public boolean checkEdit() {

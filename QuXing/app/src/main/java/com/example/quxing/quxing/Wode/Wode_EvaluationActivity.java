@@ -2,6 +2,7 @@ package com.example.quxing.quxing.Wode;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,11 @@ import com.example.quxing.quxing.model.ItemInfoBean;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +36,8 @@ public class Wode_EvaluationActivity extends AppCompatActivity {
     private List<ItemInfoBean> itemList = new ArrayList<>();
     private TextView itemname;
     private ItemAdapter adapter;
+    private String username, password;
+    private int userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +54,6 @@ public class Wode_EvaluationActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listview_main);
         listView.setAdapter(adapter);
 
-        new Thread() {
-            public void run() {
-                parseJOSNWithGSON();
-            }
-        }.start();
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -63,10 +65,21 @@ public class Wode_EvaluationActivity extends AppCompatActivity {
             }
         });
 //        return view;
+
+        SharedPreferences pref = getSharedPreferences("user", MODE_PRIVATE);
+        userid = pref.getInt("userid", 1);
+        username = pref.getString("username", "");
+        password = pref.getString("password", "");
+
+        new Thread() {
+            public void run() {
+                parseJOSNWithGSON();
+            }
+        }.start();
     }
 
     private void parseJOSNWithGSON() {
-        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/itemget");
+        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/usertoitem/getusername/"+username);
         Gson gson = new Gson();
         itemList.clear();
         //更新适配器数据
@@ -74,6 +87,24 @@ public class Wode_EvaluationActivity extends AppCompatActivity {
         }.getType()));
         showToast();
     }
+
+//    private ArrayList<String> getitemname() {
+//        String jsondata = HttpHandler.executeHttpGet("http://192.168.43.34:8082/usertoitem/getusername/" + username);
+//        ArrayList<String> list = new ArrayList<String>();
+//        try {
+//            JSONArray jsonArray = new JSONArray(jsondata);
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                JSONObject object = jsonArray.getJSONObject(i);
+//                String itemname = object.getString("itemname");
+//                list.add(itemname);
+//            }
+//            return list;
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
 
     private void showToast() {
         this.runOnUiThread(new Runnable() {
